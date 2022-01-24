@@ -1,6 +1,8 @@
 /vendor
 /vendor/mcamara/*
 /node_modules
+.env
+.env.backup
 /public/storage
 Homestead.yaml
 Homestead.json

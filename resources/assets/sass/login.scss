@@ -1,0 +1,207 @@
+@import "ed-grid";
+@import "global";
+
+body{
+	a{
+		color: $negro;
+	}
+	@include from(l){
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	header{
+		.page__header{
+			@include edContainer;
+			@include full;
+			height: 4em;
+			background: $verde;
+			box-shadow: 0px 0px 20px #000;
+			.header__img{
+				@include edItem;
+				@include mainJustify;
+				padding: 0 1em 0 1em;
+				top: 4.2em;
+				position: fixed;
+			}
+		}
+
+	}
+	main{
+		.page__main{
+			@include edContainer;
+		}
+		padding: 3em 0;
+		img{
+			max-height: 8em;
+		}
+		h1{
+			width: 85%;
+			padding: .8em 2em;
+			text-align: center;
+			border-bottom: .2em solid $verde;
+		}
+		.main__logo{
+			@include edItem;
+			@include mainCenter;
+			margin: 0 auto;
+			.main__title{
+				@include edContainer;
+				@include mainCenter;
+				width: 60%;
+			}
+			.form__login{
+				@include edContainer;
+				@include mainCenter;
+				width: 60%;
+				.login__item{
+					@include edItem(100,100,60,60);
+					@include crossCenter;
+					padding: .5em 2em;
+					ul{
+						margin: 0;
+						padding: 0;
+						list-style: none;
+						li{
+							color: $rojo;
+							line-height: 1;
+						}
+					}
+				}
+				.login__item1{
+					@include edItem(100,100,60,60);
+					@include crossCenter;
+					padding: .5em 2em;
+				}
+				.login__item2{
+					@include edItem(100,100,60,60);
+					@include crossCenter;
+					padding: .5em 2em;
+				}
+				.login__item3{
+					@include edItem(100,100,60,60);
+					@include crossCenter;
+					@include mainStart;
+					padding: .5em 2em;
+				}
+				.login__item4{
+					@include edItem(100,100,60,60);
+					@include crossCenter;
+					@include mainEnd;
+					padding: .5em 2em;
+				}
+				span, a{
+					font-size: .8em;
+				}
+				a{
+					width: 100%;
+					text-align: right;
+				}
+				input[type="email"], input[type="password"]{
+					width: 90%;
+					border: .2em solid $verde;
+					border-radius: 1em;
+					padding: .5em .5em;
+					outline: none;	
+				}
+				input[type="email"]:focus, input[type="password"]:focus{
+					border-radius: 1em !important;
+				}
+				input[type="submit"]{
+					background: $verde;
+					padding: .5em 1em;	
+					color: #fff;
+					border-radius: 1em;
+					border: 0px;
+
+					&:hover{
+						cursor: pointer;
+						outline: none;	
+					}
+				}
+			}
+		}
+
+		.page__register{
+			@include edContainer;
+			@include full;
+			@include mainCenter;
+			top: 0%;
+			height: 100vh;
+			position: fixed;
+			z-index: 0;
+			.register__title{
+				@include edItem;
+				@include mainCenter;
+				@include crossCenter;
+				height: 4em;
+				position: fixed;
+				top: 30%;
+				font-weight: bold;
+			}
+			.register__form{
+				@include edItem;
+				@include mainCenter;
+				@include crossCenter;
+				width: 80%;
+				.form__container{
+					@include edContainer;
+					margin-top: 40px;
+					padding: 1em;
+					border: .1em solid $verde;
+					.container__item{
+						@include edContainer;
+						@include mainDistribute;
+						padding: 1em 0 1em 0;
+						label{
+							font-weight: bold;
+						}
+						input[type='text']{
+							outline: none;
+							padding: .2em;
+						}
+					}
+					.form__button{
+						@include edContainer;
+						@include mainDistribute;
+						width: 40%;
+						padding: 1em;
+						input{
+							width: 10em;
+							background: $verde;
+							color: $blanco;
+							padding: .5em ;
+							border: none;
+						}
+						input:hover{
+							cursor: pointer;
+						}
+					}
+				}
+				
+			}
+		}
+
+	}
+
+	footer{
+		.page__footer{
+			@include edContainer;
+			@include full;
+			font-size: .8em;
+			.footer__title{
+				@include edItem(100,50,50,50);
+				@include mainStart;
+				padding: .5em 1em;
+				border-bottom: 1em solid $verde;
+			}
+			.footer__info{
+				@include edItem(100,50,50,50);
+				@include mainEnd;
+				padding: .5em 1em;
+				border-bottom: 1em solid $lightGreen;	
+			}
+		}
+	}
+}

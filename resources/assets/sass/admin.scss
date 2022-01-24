@@ -1,0 +1,913 @@
+//styles to the template admin
+
+@import "ed-grid";
+@import "global";
+
+
+[class^="fa-"]:before, [class*="fa-"]:before {
+	font-style: normal;
+	top: 0;
+	padding-left: .25em;
+	padding-right: .25em;
+}
+
+body{
+	header{
+		width: 100%;
+		.page__header{
+			@include edContainer;
+			@include full;
+			background: $verde;
+			height: 4em;
+			color: $blanco;
+			padding: 1em;
+			.header__title{
+				@include edItem(60,60,50,50);
+				@include crossCenter;
+				@include mainStart;
+				.header__span{
+					text-transform: uppercase;
+					font-size: 1.5em;
+					font-weight: bold;
+				}
+				.header__act{
+					padding: 1em;
+					display: none;
+				}
+				@include to(l){
+					font-size: 6px;
+					.header__act{
+						display: flex;		
+						z-index: 10;
+					}
+				}
+
+			}
+			.header__out{
+				@include edItem(40,40,50,50);
+				@include crossCenter;
+				@include mainEnd;
+				@include to(l){
+					font-size: 8px;
+				}
+				.header__a{
+					color: #fff;
+				}	
+			}	
+			box-shadow: 0px 0px 20px #000;	
+		}
+		position: fixed;
+		z-index: 10;
+	}
+
+	nav{
+		position: fixed;
+		z-index: 0;
+		padding-top: 4em;
+		background: $verde;
+		height: 100vh;
+		width: 20%;
+		.page__nav{
+			@include edContainer;
+			@include full; 
+			.nav__logo{
+				@include edItem;
+				@include mainCenter;
+				@include crossCenter;
+				padding: 1em 0 0 0;
+				&:first-child{
+					img{
+						max-height: 6em;
+					}
+					span{
+						width: 100%;
+						color: $blanco;
+						padding: .5em 0;
+						font-style: italic;
+						text-transform: uppercase;
+						font-weight: bold;
+						text-align: center;
+					}
+				}
+			}
+			.nav__menu{
+				@include edItem;
+				padding: 1em 0 0 0 ;
+				ul{
+					margin: 0;
+					padding: 0;
+					padding-left: 2em;
+					list-style: none;
+					color: $negro; 
+
+					li{
+						background: $blanco;
+						margin-bottom: 1px;
+						border-radius: .3em 0 0 .3em;
+						line-height: 1.5;
+						a{
+							display: block;
+							color: $negro;
+						}
+						&:hover > a{
+							color: $verde;
+						}
+					}
+				}
+			}
+		}
+
+		@include to(l){
+			z-index: 2;
+			background: transparentize($verde, .2);		
+			top:-200%;
+			width: 100%;
+			transition: all 2s;
+		}
+	}
+	.mostrar{
+		top:0%;
+	}
+	
+	main{
+		.page__main{
+			@include edContainer;
+			@include full;
+			@include flexColumn;
+			padding-left: 20%;
+			padding-top: 5em;
+			min-height: 100vh;
+			@include to(l){
+				padding-left: 0%;
+			}
+			.main__title{
+				@include edItem;
+				@include mainCenter;
+			}
+			.main__msj{
+				color: $rojo;
+			}
+			.main__function{
+				@include edContainer;
+				@include mainStart;				
+			}
+			.main__link{
+				@include edItem;
+				@include mainDistribute;
+				padding : .2em 0 0 2em;
+				a{
+					text-decoration: none;
+					font-family: $letra;
+					font-size: 1.1em;
+					color: $negro;
+				}
+
+			}
+			.main__insert{
+				@include edItem;
+				@include mainCenter;
+				.insert__form{
+					@include edContainer;
+					@include mainCenter;
+					
+					width: 80%;
+					padding-top: 1em;
+					p{
+						text-align: justify;
+					}
+					.action__form{
+						@include edItem;
+						@include mainCenter;
+						@include to(l){
+							width: 130%;
+						}		
+						.form__container{
+							@include edItem;
+							@include mainDistribute;
+							padding-bottom:  1em;
+							padding-left: 1.5em;
+							
+							.container__label{
+								width: 20%;
+								font-family: $letra;
+								font-size: 1em;
+								font-weight: bold;
+								@include to(l){
+									width: 150%;
+								}	
+							}
+							.container__item{
+								@include edItem;
+								@include crossCenter;
+								width: 80%;
+								@include to(l){
+									width: 100%;
+								}
+								input[type='text'],select,textarea, input[type='email'],input[type='password']{
+									width: 90%;
+									border-radius: .5em;
+									padding: .5em;
+									outline: none;
+									@include to(l){
+										width: 120%;
+									}
+								}
+								input[type='file']{
+									padding: 1em;
+									outline: none;
+								}
+								img{
+									width: 100px;
+									height: 100px;
+									background: #4d4d4d;
+								}
+								
+							}
+							#mensaje{
+								color: $rojo;
+							}
+						}
+						.form__button{
+							@include edItem;
+							@include mainDistribute;
+							padding-top: .5em;
+							width: 50%;
+							padding-bottom: 1em;
+							@include to(l){
+								width: 100%;
+							}		
+							.button__save{	
+								input[type='submit']{
+									width: 10em;
+									background: $verde;
+									color: $blanco;
+									padding: .5em 0;
+									border: none;
+								}
+								input[type='submit']:hover{
+									cursor: pointer;
+								}
+								@include to(l){
+									padding-bottom: .3em;
+								}	
+							}
+							.button__cancel{
+								input[type='button']{
+									width: 10em;
+									background: $verde;
+									color: $blanco;
+									padding: .5em 0;
+									border: none;
+								}
+								input[type='button']:hover{
+									cursor: pointer;
+								}
+								@include to(l){
+									//width: 4em;
+								}
+							}
+						}
+					}
+				}
+			}
+			.main__content{
+				@include edItem;
+				padding: 1em;
+				.content__table{
+					.table__head{
+						background: $verde;
+						color: $blanco;
+					}
+					.data__info{
+						border: .1em solid $verde;
+						text-align: center;
+					}
+					.table__msj{
+						color: $rojo;
+						text-align: center;
+					}
+				}
+				
+			}
+			.main__boton{
+				@include edItem;
+				@include mainEnd;
+				padding: 0 4em 1em 0;
+				a{
+					width: 10em;
+					background: $verde;
+					color: $blanco;
+					padding: .5em .3em;
+					border: .1em solid $verde;
+					border-radius: 1em;
+					font-size: .8em;		
+				}
+				a:hover{
+					text-decoration: none;
+				}
+			}
+			.main__data{
+				@include edContainer;
+				@include full;
+				padding: 0 1em 0 1em;
+				.data__container{
+					@include edContainer;
+					@include full;
+					@include mainJustify;
+					border: .1em $verde solid;
+					padding: 1em;
+					margin-bottom: 1em;
+					.data__img{
+						@include edItem;
+						@include mainJustify;
+						width: 20%;
+						padding: 1em;
+						@include to(l){
+							width: 100%;
+							@include mainCenter;
+						}
+						.img__image{
+							padding-bottom: 1em;
+							img{
+								width: 100px;
+								height: 100px;
+								border: .1em solid $negro; 	
+							}
+						}					
+					}
+					.data__name{
+						@include edItem;
+						@include mainJustify;
+						width: 35%;
+						padding: 1em 1em 0 1em ;
+						@include to(l){
+							width: 100%;
+						}
+						.data__item{
+							@include edItem;
+							input[type='text'] , input[type='password']{
+								width: 100%;
+								border-radius: .5em;
+								padding: .5em;
+								outline: none;
+							}
+							label{
+								font-weight: bold;
+								@include to(l){
+									font-size: 10px;
+								}
+							}
+							select{
+								width: 100%;
+								border-radius: .5em;
+								padding: .5em;
+								outline: none;
+							}
+						}
+					}
+					.data__button{
+						@include edContainer;
+						@include mainJustify;
+						width: 35%;
+						padding: 1em 1em 0 1em;
+						@include to (l){
+							width: 100%;
+						}
+						input[type='submit']{
+							width: 10em;
+							background: $verde;
+							color: $blanco;
+							padding: .5em ;
+							border: none;
+						}
+						input[type='submit']:hover{
+							cursor: pointer;
+						}
+						input[type='button']{
+							width: 10em;
+							background: $verde;
+							color: $blanco;
+							padding: .5em 0;
+							border: none;
+						}
+						input[type='button']:hover{
+							cursor: pointer;
+						}
+					}
+				}
+				.data__msj{
+					@include edContainer;
+					@include mainCenter;
+					padding: 3em;
+					color: $rojo;
+				}
+
+			}
+
+		}
+		.page__data{
+			@include edContainer;
+			@include full;
+			@include flexColumn;
+			padding-left: 20%;
+			padding-top: 4em;
+			min-height: 100vh;
+			@include to(l){
+				padding-left: 0%;
+			}
+			.data__title {
+				@include edItem;
+				@include mainCenter;
+				@include crossCenter;
+				text-align: center;
+			}
+			.data__name{
+				@include edItem;
+				@include mainStart;
+				@include crossCenter;
+				.name__content{
+					font-weight: bold;
+					padding: 0  0  0 1.4em;
+					font-size: 1.4em;
+				}	
+				.name__link{
+					@include edItem;
+					@include mainEnd;
+					padding: 2em 3em 0 3em;
+					a{
+						color: $blanco;
+						padding: .5em;
+						border-radius: .5em;
+						background: $verde;
+					}
+					a:hover{
+						text-decoration:none;
+					}
+					
+				}
+			}
+			.data__content{
+				@include edItem;
+				padding: 0 3em 0 3em;
+				
+			}
+			.data__date{
+				@include edItem;
+				@include mainJustify;
+				@include crossCenter;
+				padding: 1em;
+				padding-right: 4em;
+				.date__label{
+					@include mainStart;
+					color: $verde;
+					font-weight: bold;
+					padding: 0 1em 0 2em;
+					@include to(l){
+						width: 50%;
+					}
+				}
+				.date__info{
+					padding: -2em 2em 0 0;
+
+				}
+				.date__label2{
+					@include mainEnd;
+					color: $verde;
+					font-weight: bold;
+					padding: 0 1em 0 2.8em;
+					margin-left: 20em;
+					@include to(l){
+						width: 50%;
+					}
+				}	
+			}
+			.data__multi{
+				@include edItem;
+				@include mainStart;
+				@include crossCenter;
+				max-height: 2em;
+				.name__content{
+					font-weight: bold;
+					padding: 0  0  0 1.4em;
+					font-size: 1.4em;
+				}	
+			}
+			.data__multimedia{
+				@include edContainer;
+				@include mainCenter;
+				@include full;
+				padding: 3em 2em 0 2em;
+				.multimedia__img{
+					@include edItem(100,100,25,25);
+					@include mainCenter;
+					@include crossStart;
+					@include flexColumn;
+					border: .2em $verde solid;
+					padding: 1em;
+					margin-right: 2em;
+					margin-bottom: 2em;
+					.img__imagen{
+						@include edItem;
+						@include crossCenter;
+						@include mainCenter;
+						img{
+							height: 200px;
+							width: 200px;
+						}
+
+					}
+					.img__form{
+						@include edItem;
+						@include crossCenter;
+						@include mainCenter;
+						padding-top: 2em;
+						input[type='submit']{
+							width: 10em;
+							background: $verde;
+							color: $blanco;
+							padding: .5em 0;
+							border: none;
+						}
+						input[type='submit']:hover{
+							cursor: pointer;
+						}						
+					}
+
+				}
+				.multimedia__docs{
+					@include edItem;
+					@include crossStart;
+					padding: .2em;
+					.docs__name{
+						@include edItem(100,100,50,50);
+						@include mainStart;
+						@include crossCenter;
+						height: 2em;
+					}
+					.docs__form{
+						@include edItem(100,100,50,50);
+						@include mainStart;
+						@include crossCenter;
+						margin-left: -100px;
+
+						input[type='submit']{
+							width: 10em;
+							background: $verde;
+							color: $blanco;
+							padding: .5em 0;
+							border: none;
+						}
+						input[type='submit']:hover{
+							cursor: pointer;
+						}
+						@include to(l){
+							@include mainCenter;
+							margin-left: 0;
+						}
+
+					}
+					.multi__label{
+						padding-right: 1em;
+						color: $verde;
+						font-weight: bold;
+					}
+				}
+				.multimedia__link{
+					@include edItem;
+					@include crossStart;
+					padding: .2em;
+					.link__a{
+						@include edItem(100,100,50,50);
+						@include mainStart;
+						@include crossCenter;
+						height: 2em;
+
+					}
+					.link__form{
+						@include edItem(100,100,50,50);
+						@include mainStart;
+						@include crossCenter;
+						margin-left: -100px;
+
+						input[type='submit']{
+							width: 10em;
+							background: $verde;
+							color: $blanco;
+							padding: .5em 0;
+							border: none;
+						}
+						input[type='submit']:hover{
+							cursor: pointer;
+						}
+						@include to(l){
+							@include mainCenter;
+							margin-left: 0;
+						}
+					}
+					.multi__label{
+						padding-right: 1em;
+						color: $verde;
+						font-weight: bold;
+					}
+				}
+				.multimedia__mjs{
+					@include edItem;
+					@include mainCenter;
+					@include crossStart;
+					color: $rojo;
+					font-weight: bold;
+				}
+			}
+
+
+			.main__content{
+				@include edItem;
+				@include mainStart;
+				padding: 1em;
+				.content__data{
+					@include edContainer;
+					@include mainCenter;
+					@include flexColumn;
+					padding: 1em;
+					padding-top: 1em;
+					.data__title{
+						@include edContainer;
+						@include crossCenter;
+						padding: 1em;
+						background: $verde;
+						height: 2em;
+						color: $blanco;
+						.data__name{
+							@include edItem(25);
+							@include mainCenter;
+							p{
+								color: $rojo;
+							}
+						}
+						.data__content{
+							@include edItem(60);
+							@include mainCenter;
+							text-align: justify;
+						}
+						.data__action{
+							@include edItem(15);
+							@include mainEnd;
+						}
+					}
+					.data__info{
+						@include grid('.data__name',1,0em);
+						@include grid('.data__content',1,0em);
+						@include grid('.data__action',1,0em);
+						border-left: .1em $verde solid;
+						border-bottom: .1em $verde solid;
+						border-right: .1em $verde solid;
+						.data__name{
+							@include edItem(25);
+							@include mainStart;
+							@include crossCenter;
+							padding: .2em;
+							border-right: .1em $verde solid;
+						}
+						.data__content{
+							@include edItem(60);
+							@include mainCenter;
+							@include crossCenter;
+							text-align: justify;
+							padding: .2em;
+							border-right: .1em $verde solid;
+						}
+						.data__action{
+							@include edItem(15);
+							@include mainCenter;
+							@include crossCenter;
+							padding: .2em;
+						}
+						.data__msj{
+							@include edItem;
+							@include mainCenter;
+							@include crossCenter;
+							border-left: .1em $verde solid;
+							border-bottom: .1em $verde solid;
+							border-right: .1em $verde solid;							
+							p{
+								color: $rojo;
+								font-weight: bold;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	section{
+		.page__update, .page__delete{
+			@include edContainer;
+			@include full;
+			@include mainCenter;
+			@include flexColumn;
+			min-height: 100vh;
+			padding-top: 5em;
+			background: rgba($blanco, .7);
+			position: fixed;
+			display: none;
+			width: 80%;
+			left: 20%;
+			z-index: 1;
+			color: $verde;
+			@include to(l){
+				left: 0%;
+				width: 100%;
+			}
+			.action__form{
+				@include edContainer;
+				@include mainCenter;
+				background: $blanco;
+				width: 80%;
+				margin-left: 10%;
+				border: solid $verde .4em;
+				@include to(l){
+					width: 100%;
+					margin-left: 0%;
+				}
+			}
+
+			.form__title{
+				@include edItem;
+				@include mainCenter;
+			}
+
+			.form__container{
+				@include edContainer;
+				@include mainCenter;
+				@include crossCenter;
+				padding: 1em 5em 0 1.5em;
+				@include to(l){
+					padding:1em 1em 0 1em;
+				}
+				.container__label{
+					@include edItem(100,100,30,30);
+					@include mainJustify;
+
+					font-family: $letra;
+					font-size: 1em;
+					font-weight: bold;	
+				}
+				.container__item{
+					@include edItem(100,100,70,70);
+					@include mainJustify;
+					input[type='text'],select, textarea ,input[type='password']{
+						width: 108%;
+						border-radius: .5em;
+						padding: .5em;
+						outline: none;
+					}
+					@include to(l){
+					}
+				}
+			}
+			.form__button{
+				@include edContainer;
+				@include mainDistribute;
+				padding-top: .5em;
+				width: 40%;
+				padding: 1em 0 2em 0;
+				@include to(1025px){
+					width: 100%;
+				}
+				
+				.button__save{
+					input[type='submit']{
+						width: 10em;
+						background: $verde;
+						color: $blanco;
+						padding: .5em 0;
+						border: none;
+					}
+					input[type='submit']:hover{
+						cursor: pointer;
+					}
+				}
+				.button__cancel{
+					input[type='button']{
+						width: 10em;
+						background: $verde;
+						color: $blanco;
+						padding: .5em 0;
+						border: none;
+					}
+					input[type='button']:hover{
+						cursor: pointer;
+					}
+				}
+			}
+		}
+		.page__resource{
+			@include edContainer;
+			@include full;
+			@include mainCenter;
+			@include flexColumn;
+			min-height: 100vh;
+			padding-top: 5em;
+			background: rgba($blanco, .7);
+			position: fixed;
+			display: none;
+			width: 80%;
+			left: 20%;
+			z-index: 1;
+			color: $verde;
+			@include to(l){
+				left: 0%;
+				width: 100%;
+			}
+			.action__form{
+				@include edContainer;
+				@include mainCenter;
+				background: $blanco;
+				width: 80%;
+				margin-left: 10%;
+				border: solid $verde .4em;
+				@include to(l){
+					width: 100%;
+					margin-left: 0%;
+				}
+			}
+
+			.form__title{
+				@include edItem;
+				@include mainCenter;
+			}
+			.form__container{
+				@include edContainer;
+				@include mainCenter;
+				@include crossCenter;
+				padding-bottom:  1em;
+				padding-left: 1.5em;
+				.container__label{
+					@include edItem(50);
+					@include mainJustify;
+					padding-left: 4em;
+					font-family: $letra;
+					font-size: 1em;
+					font-weight: bold;
+					@include to(l){
+						padding: 0;
+					}	
+				}
+				.container__item{
+					@include edItem(50);
+					padding-left: -4em;
+					@include mainCenter;
+					@include crossCenter;
+					input[type='text'],select{
+						width: 80%;
+						border-radius: .5em;
+						padding: .5em;
+						outline: none;
+						@include to(l){
+							width: 80%;
+						}
+					}
+				}
+
+			}
+
+			.form__button{
+				@include edContainer;
+				@include mainDistribute;
+				padding-top: .5em;
+				width: 40%;
+				padding: 1em 0 2em 0;
+				@include to(1025px){
+					width: 100%;
+				}
+				
+				.button__save{
+					input[type='submit']{
+						width: 10em;
+						background: $verde;
+						color: $blanco;
+						padding: .5em 0;
+						border: none;
+					}
+					input[type='submit']:hover{
+						cursor: pointer;
+					}
+				}
+				.button__cancel{
+					input[type='button']{
+						width: 10em;
+						background: $verde;
+						color: $blanco;
+						padding: .5em 0;
+						border: none;
+					}
+					input[type='button']:hover{
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
+}
+

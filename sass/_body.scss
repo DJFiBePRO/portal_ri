@@ -1,0 +1,172 @@
+@import "ed-grid";
+
+body{
+	min-height: 100vh;
+	background: radial-gradient( $radial-inicial, $radial-final);
+	//background-color: black;
+
+	nav{
+		padding-top: 1em;
+		position: absolute;
+		transition: 1s all ease-in;
+
+		img{
+			max-height: 6em;
+		}
+
+
+		>.ed-item{
+			&:first-child{
+				justify-content: flex-start;
+			}
+		}
+
+		a{
+			color: #fff;
+		}
+
+		@include hasta(web){
+			>.ed-item{
+				&:first-child{
+					order: 2;
+				}
+				&:nth-child(2){
+					order: 3;
+					justify-content: center;
+				}
+				&:nth-child(3){
+					display: none;
+					align-items: flex-start;
+					position: fixed;
+					z-index: 5;
+					order: 1;
+					min-height: 100vh;
+					background: rgba($verde, .9);
+					margin: 0;
+					padding: 0;
+					.ed-menu{
+						width: 100%;
+						li{
+							border-bottom: 1px solid #fff;
+							padding: 0em 0;
+							&:first-child{
+								a{
+									display: flex;
+									justify-content: space-between;
+									align-items: center;
+
+								}
+							}
+							ul{
+								width: 100%;
+								position: relative;
+								li{
+									padding-left: 1em;
+									&:last-child{
+										border-bottom: 0px;
+									}
+								}
+							}
+						}
+					}
+				}
+				&:last-child{
+					order: 4;
+					justify-content: flex-end;
+				}
+			}
+		}
+	}
+
+	.sticky{
+		padding-top: .5em;
+		align-items: flex-start !important;
+		min-height: 8.5em;
+		position: fixed;
+		top: 0;
+		background-size: 100% 100%;
+		background-image: url("../img/logos/IMAGEN-HEADER.png");
+		background-repeat: no-repeat;
+
+		img{
+			max-height: 4em !important;
+		}
+
+		a{
+			color: #fff !important;
+		}
+
+		#acreditacion{
+			@include  desde(web){
+				padding-top: 1em;
+			};
+		}
+
+		.ed-menu{
+			z-index: 5;
+
+			>li{
+				border-bottom: 0px solid #fff !important;
+				padding: .85em 0;
+				@include hasta(web){
+					border-bottom: 1px solid #fff !important;
+				}
+				a{
+					@include hasta(web){
+						color: #fff !important;
+					}
+				}
+				ul{
+					background: rgba(black,.2);
+					@include hasta(web){
+						background: rgba($verde, .9);
+					}
+				}
+			}
+		}
+	}
+
+	footer{
+		height: 5em;
+		.ed-container{
+			.ed-item{
+					justify-content: flex-start;
+					.social-net{
+						height: 2em;
+					}
+
+			}
+		}
+
+		p{
+			margin: 0;
+			padding: 0;
+			text-align: center;
+			width: 100%;
+			color: $titulo-parrafo2;
+			font-size: .8em;
+			a{
+				color: $titulo-parrafo2;
+				text-decoration: none;
+			}
+		}
+
+		@include hasta(web){
+			>.ed-container{
+				>.ed-item{
+					&:nth-child(2){
+						order:2;
+						padding-bottom: 1em;
+					}
+
+					&:last-child{
+						order:1;
+						width: 50%;
+						margin-left: 25%;
+					}
+				}
+			}
+		}
+	}
+
+}

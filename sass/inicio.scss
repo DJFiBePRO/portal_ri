@@ -1,0 +1,860 @@
+@import "global";
+@import "_body";
+
+body{
+	.contenido{
+		h1,h2,span,p{
+			color: #000;
+			font-size: 0.9em;
+			margin: 0;
+			padding: 0;
+			text-align:justify;
+			width: 100%;
+		}
+	}
+
+	@include desde(web){
+		overflow: auto;
+	}
+
+	@include hasta(web){
+		.ancla, .ancla2{
+			display: none;
+		}
+	}
+
+	.ancla, .ancla2{
+		color: #fff;
+		font-size: 5em;
+	}
+
+	.ancla2{
+		color: #000;
+	}
+
+	header{
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+
+		@include hasta(web){
+			background-size: 140% 100%;
+		}
+
+		@include hasta(tablet){
+			background-size: 200% 100%;
+		}
+
+		#header{
+			background: rgba(black, .4);
+			min-height: 100vh;
+
+		}
+		.ed-item{
+			padding: 0;
+			.flecha{
+				position: absolute;
+				align-self: flex-end;
+			}
+			.slider{
+				position: absolute;
+				z-index: -1;
+				width: 100%;
+				img{
+					height: 100vh;
+					width: 120%;
+				}
+			}
+			.description{
+				text-align: center;
+			}
+			.logo-espoch{
+				margin-top: 5em;
+				img{
+					height: 8em;
+				}
+			}
+
+			h1,h2,span{
+				color: #fff;
+				font-size: 2.6em;
+				margin: 0;
+				padding: 0;
+				text-align: center;
+				width: 100%;
+			}
+
+
+			h2{
+				font-size: 1.8em;
+				font-weight: normal;
+			}
+			span{
+				font-size: 1.6em;
+			}
+
+			@include hasta(tablet){
+				h1{
+					font-size: 2.7em;
+
+				}
+				h2{
+					font-size: 1.5em;
+				}
+				span{
+					font-size: 1.2em;
+				}
+			}
+
+			@include hasta(movil){
+				h1{
+					font-size: 1.7em;
+				}
+				h2{
+					font-size: 1em;
+				}
+				span{
+					font-size: .85em;
+				}
+			}
+
+			&:first-child{
+				// padding-top: 5em;
+				min-height: 85vh;
+			}
+			// &:last-child{
+			// 	min-height: 15vh;
+			// }
+		}
+	}
+
+	main{
+		article{
+			min-height: 100vh;
+			padding: .5em 2em;
+
+			@include desde(web){
+				padding: 6em 9em;
+			}
+
+			h3, h4{
+				margin: 0;
+				padding: 0;
+			}
+
+			h3{
+				color: $titulo-pagina;
+				font-size: 2em;
+				padding: .5em 0;
+			}
+
+			h4{
+				color: $titulo-parrafo;
+			}
+			p,span,a{
+				color: #666666;
+				margin: 0;
+			}
+			p{
+				text-align: justify;
+			}
+			span{
+				text-align: right;
+				width: 100%;
+			}
+
+
+
+			.noticia{
+				margin-bottom: 1em;
+				h4, p{
+					padding: .5em 0;
+				}
+			}
+
+			.autoridad{
+				p,span{
+					color: $titulo-parrafo;
+					text-align: center;
+					width: 100%;
+				}
+
+				span{
+					font-weight: bold;
+				}
+
+				a{
+					display: block;
+
+					span, img{
+						width: 7em;
+						height: 7em;
+						object-fit: cover;
+					}
+
+					span{
+						color: #fff;
+						position: absolute;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						transition: all .5s ease-in;
+						i{
+							display: none;
+						}
+						&:hover{
+							background: rgba(black, .3)
+						}
+						&:hover > i{
+							display: block;
+						}
+					}
+				}
+			}
+		}
+
+		#mision-vision, #mision{
+			p{
+				font-size: .9em;
+			}
+		}
+
+		#autoridades-aso{
+			h3{
+				font-size: 1.5em;
+			}
+
+			h4{
+				padding-bottom: .5em;
+			}
+
+			@include desde(web){
+				padding: 2em 6em;
+			}
+			.autoridad{
+				padding-bottom: 1em;
+				p,span{
+					color: $titulo-parrafo;
+					text-align: center;
+					width: 100%;
+					font-size: .9em;
+				}
+
+				a{
+					display: block;
+
+					span, img{
+						width: 4em;
+						height: 4em;
+					}
+
+					span{
+						color: #fff;
+						position: absolute;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						transition: all .5s ease-in;
+						i{
+							display: none;
+						}
+						&:hover{
+							background: rgba(black, .3)
+						}
+						&:hover > i{
+							display: block;
+						}
+					}
+				}
+			}
+
+			#contactos-aso{
+				.ed-container{
+					.ed-item{
+						&:first-child{
+							outline: 1px solid $verde;
+							h5{
+								text-align: center;
+							}
+						}
+						&:last-child{
+							margin-top: 1em;
+							padding: .5em;
+							background: $verde;
+							span, a{
+								color: #fff;
+							}
+
+							span{
+								display: flex;
+								justify-content: space-around;
+								align-items: center;
+							}
+						}
+					}
+				}
+			}
+		}
+
+
+		#ofertas, #noticia{
+			#paginacion{
+				.pagination{
+					text-align: center;
+					list-style: none;
+					margin: 0;
+					padding: 0;
+					overflow: hidden;
+
+					li{
+						list-style-type: none;
+						font-weight: bold;
+						float: left;
+						width: 20%;
+						span{
+							color: $verde;
+							display: block;
+							padding: .3em;
+							text-decoration: none;
+						}
+						a{
+							color: $verde;
+							display: block;
+							padding: .3em;
+							text-decoration: none;
+						}
+					}
+
+				}
+
+			}
+
+			@include hasta(web){
+				padding: $padding;
+			}
+			.noticia{
+				h4,p{
+					width: 100%;
+				}
+			}
+		}
+
+		#contactos, #descargas, #grupos, #informes, #mision,#proyecto, #objetivos, #funciones, #proyectos, #modalidad-estudio, #autoridades-aso, #noticias-facultad, #noticia-facultad, #galeria{
+			min-height: 80vh;
+			p{
+				color: $titulo-parrafo2;
+				font-size: .8em;
+				padding-bottom: .5em;
+				width: 100%;
+				&:last-child{
+					padding-bottom: 3em;
+				}
+			}
+
+			@include hasta(web){
+				iframe{
+					width: 100%;
+				}
+			}
+		}
+
+		#grupos{
+			img{
+				height: 10em;
+			}
+		}
+
+		.tituloimg{
+			background: black;
+			h3{
+				color: #fff;
+			}
+		}
+
+		.imgesc{
+			border: 2px solid black;
+		}
+
+		#proyecto{
+			h1{
+				color: red;
+			}
+		}
+
+		#facultad-proyectos{
+			padding-top: 7.5em;
+			.proyecto{
+				h2{
+					color: red;
+				}
+				margin-bottom: .5em;
+				.ed-item{
+					img{
+						border: 1px solid black;
+						padding: .5em;
+					}
+					p{
+						margin: .5em .5em;
+					}
+					span{
+						width: 100%;
+						text-align: right;
+					}
+				}
+			}
+
+			.paginacion{
+				text-align: center;
+				font-weight: bold;
+				margin: .5em .5em;
+				font-size: 1.5em;
+				a{
+					&:first-child{
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+
+		#descargas{
+				margin: 8em 0em !important;
+				@include desde(tablet){
+					margin: 4em 0em !important;
+				}
+			.descarga{
+				margin-bottom: 2em;
+				.ed-container{
+					border: 2px solid black;
+					.ed-item{
+						padding: .5em 1em;
+						&:first-child{
+							padding: 0;
+						}
+					}
+					h4{
+						padding: .5em .2em;
+						width: 100%;
+						background: black;
+						color: #fff;
+						text-align: center;
+					}
+					i{
+						margin-right: .5em;
+					}
+				}
+			}
+		}
+
+		#informes{
+			padding: 0em 0em;
+			padding-top: 7em;
+			.pagination{
+				display: flex;
+				text-align: center;
+				list-style: none;
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+
+				li{
+					list-style-type: none;
+					font-weight: bold;
+					float: left;
+					width: 20%;
+					span{
+						color: $verde;
+						display: block;
+						padding: .3em;
+						text-decoration: none;
+					}
+					a{
+						color: $verde;
+						display: block;
+						padding: .3em;
+						text-decoration: none;
+					}
+				}
+
+			}
+			.informe{
+				margin-bottom: 1em;
+				font-size: .96em;
+				border: 1px solid $verde-adm;
+				margin: 1em;
+					.ed-item{
+						padding: .25em .5em;
+						&:first-child{
+							padding: 0;
+						}
+					}
+					h4{
+						font-weight: lighter;
+						padding: 0.5em 0.5em;
+						width: 100%;
+						color: #000;
+						text-align: justify;
+					}
+					i{
+						margin-right: .5em;
+					}
+			}
+		}
+
+		#funciones{
+			padding-top: 6em;
+			ul{
+				margin: .5em .5em;
+				padding: 0;
+				font-size: .8em;
+				list-style: none;
+				li{
+					line-height: 1.5;
+				}
+			}
+		}
+
+		#proyectos{
+			padding-top: 7em;
+			.proyecto{
+				margin-bottom: .5em;
+				.ed-container{
+					border: 2px solid black;
+					.ed-item{
+						&:first-child{
+							height: 7em;
+						}
+						&:last-child{
+							height: 3em;
+							background: black;
+							a{
+								color: #fff;
+							}
+						}
+						img{
+							height: 6em;
+						}
+						a{
+							width: 100%;
+							font-size: .9em;
+							text-align: center;
+						}
+					}
+				}
+			}
+		}
+
+		#modalidad-estudio, #funciones{
+			p,h4{
+				padding-bottom: .5em;
+			}
+		}
+
+		#mision-vision, #mision, #vision, #objetivos, #campo-ocupacional, #perfil-profesional, #publicacion{
+			p,h4{
+				padding-top: .5em;
+				padding-bottom: 1.5em;
+			}
+		}
+
+		#publicacion{
+			//width: 1024px;
+			min-height: 15em;
+			margin: 0 auto;
+			padding: 0;
+			outline: 1px solid $verde;
+			overflow: hidden;
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
+			ul{
+				padding: 0;
+				//width: 1024px*3 ;
+				min-height: 15em;
+				display: flex;
+				list-style: none;
+				align-items: center;
+				justify-content: center;
+				li{
+					padding: 1em;
+					margin: 0 auto;
+					//width: 1024px;
+					img{
+						width: 100%;
+						max-height: 10em;
+					}
+				}
+			}
+		}
+
+		#publicacion-nav{
+			ul{
+				width: 100%;
+				list-style: none;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: 0;
+				padding: 0;
+				li{
+					padding: 0 .5em;
+				}
+			}
+		}
+
+		#noticias-facultad{
+			#paginacion{
+				.pagination{
+					text-align: center;
+					list-style: none;
+					margin: 0;
+					padding: 0;
+					overflow: hidden;
+
+					li{
+						list-style-type: none;
+						font-weight: bold;
+						float: left;
+						width: 20%;
+						span{
+							color: $verde;
+							display: block;
+							padding: .3em;
+							text-decoration: none;
+						}
+						a{
+							color: $verde;
+							display: block;
+							padding: .3em;
+							text-decoration: none;
+						}
+					}
+
+				}
+
+			}
+
+			@include desde(web){
+				padding: 4em 8em;
+				max-height: 88vh;
+			}
+
+			.noticia-facultad{
+				.ed-item{
+					background: black;
+					height: 12.5em;
+					width: 12.5em;
+					h4, p{
+						color: #fff;
+					}
+					h4{
+						text-align: center;
+					}
+					img, h4, p{
+						// padding: .5em;
+					}
+					margin-bottom: 1em;
+				}
+
+				a{
+					display: none;
+					background: rgba(black, .3);
+					position: absolute;
+					height: 12.5em;
+					width: 12.5em;
+					color: #fff;
+				}
+
+				&:hover > a{
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					cursor: pointer;
+				}
+			}
+
+			#principal{
+				.ed-item{
+					height: 25em;
+					width: 25em;
+				}
+				a{
+					height: 25em;
+					width: 25em;
+				}
+			}
+		}
+
+		#noticia-facultad{
+			padding-top: 7em;
+			.ed-item{
+				&:nth-child(3){
+					span{
+						width: 100%;
+						padding: .5em 0;
+						text-align: right;
+						color: $verde;
+						font-size: 1em;
+						i{
+							color: $verde;
+						}
+					}
+				}
+			}
+			h3{
+				text-align: right;
+				padding: .5em 0;
+			}
+			img{
+				max-height: 22em;
+				width: auto;
+				float: left;
+				padding-right: 1.5em;
+			}
+			p{
+				font-size: 1em;
+			}
+			.fb-share-button{
+				margin: 2em;
+			}
+		}
+
+		#contactos{
+			padding: 9em;
+		}
+
+		#galeria{
+
+			>.ed-item{
+				padding: 1em;
+			}
+			.imagen{
+				.ed-container{
+
+					height: 15em;
+					width: 20em;
+					margin-bottom: 2em;
+					border: 2px solid black;
+
+					.ed-item{
+
+						span{
+							font-weight: bold;
+							font-size: 1.2em;
+							color: black;
+							width: 100%;
+							text-align: center;
+							padding: .5em 0;
+						}
+						img{
+							width: 100%;
+							height: 10em;
+						}
+					}
+
+					a{
+						display: none;
+						background: rgba(black, .3);
+						position: absolute;
+						height: 15em;
+						width: 20em;
+						color: #fff;
+					}
+
+					&:hover > a{
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						cursor: pointer;
+					}
+				}
+			}
+
+			#paginacion{
+				.pagination{
+					text-align: center;
+					list-style: none;
+					margin: 0;
+					padding: 0;
+					overflow: hidden;
+
+					li{
+						list-style-type: none;
+						font-weight: bold;
+						float: left;
+						width: 20%;
+						span{
+							color: $verde;
+							display: block;
+							padding: .3em;
+							text-decoration: none;
+						}
+						a{
+							color: $verde;
+							display: block;
+							padding: .3em;
+							text-decoration: none;
+						}
+					}
+
+				}
+
+			}
+		}
+	}
+	.noticia__item_pequena{
+		height: 6em;
+		width: auto;
+		object-fit: cover
+	}
+	#revistas{
+		.revista__item{
+			height: 18em;
+			.item__portada{
+				height:18em;
+				width: auto;
+				border: 1px solid #efefef;
+
+			}
+			.revista_description{
+				width: 100%;
+				text-align: center;
+				color: #000;
+				font-weight: bold;
+				.icon__pdf{
+					height: 1.2em;
+				}
+			}
+		}
+	}
+	#ofertas{
+		display: flex;
+		justify-content: center;
+		.proyecto{
+			flex-wrap: nowrap;
+			.contenido{
+				display: flex;
+				justify-content: space-around;
+				&_imagen{
+					.img_oferta{
+						height: 20em;
+						width: auto;
+						object-fit: contain;
+						width: auto;
+					}
+				}
+				&_informacion{
+					padding:0 8em;
+					width: 100%;
+					justify-content: center;
+					span{
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+		.pagination{
+			display: flex;
+			justify-content: center;
+			width: 40%;
+		}
+	}
+}

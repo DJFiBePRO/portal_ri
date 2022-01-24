@@ -1,5 +1,4 @@
 /vendor
-/vendor/mcamara/*
 /node_modules
 .env
 .env.backup

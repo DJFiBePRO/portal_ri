@@ -32,10 +32,9 @@
 							<div class="data">
 								<div class="content">
 									<div class="title-new"><a
-											href="{{ url('/noticia/'.$principal->news_id) }}">{{$principal->news_title}}</a>
+											href="{{ url('/noticia/'.$principal->news_id) }}">{{$principal->news_translation_title}}</a>
 									</div>
-									<p class="text">{{ str_limit(strip_tags($principal->news_content), $limit = 250, $end
-										= ' ...') }}</p>
+									<p class="text">{!! str_limit(strip_tags($principal->news_translation_content), $limit = 250, $end = ' ...') !!}</p>
 								</div>
 
 							</div>
@@ -56,8 +55,8 @@
 
 							<div class="data">
 								<div class="content">
-									<div class="title-new"><a href="#">{{$noticia->news_title}}</a></div>
-									<p class="text">{{$noticia->news_title}}</p>
+									<div class="title-new"><a href="#">{{$noticia->news_translation_title}}</a></div>
+									<p class="text">{{$noticia->news_translation_title}}</p>
 								</div>
 							</div>
 						</div>

@@ -1,5 +1,9 @@
 <?php
 
+
+use App\news;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +14,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::group(
 	[
 		'prefix' => LaravelLocalization::setLocale(),
@@ -510,17 +515,17 @@ Route::group(
 				->where('link_state', 1)
 				->orderBy('link.link_id', 'desc')
 				->get();
-				$news =DB::table('news')
-				->join('multimedia','news.news_id','=','multimedia.multimedia_news')
-				->join('news_translation','news.news_id','=','news_translation.news_id')
-				->select('news.news_id','news.news_status_id', 'news_translation.news_translation_title','news_translation.news_translation_content', 'multimedia.multimedia_name','news_translation.news_translation_alias')
-				->where('news.news_status_id',1)
-			  ->where('news.news_type_id',2)
+			$news = DB::table('news')
+				->join('multimedia', 'news.news_id', '=', 'multimedia.multimedia_news')
+				->join('news_translation', 'news.news_id', '=', 'news_translation.news_id')
+				->select('news.news_id', 'news.news_status_id', 'news_translation.news_translation_title', 'news_translation.news_translation_content', 'multimedia.multimedia_name', 'news_translation.news_translation_alias')
+				->where('news.news_status_id', 1)
+				->where('news.news_type_id', 2)
 				//esta linea agrupa
 				->groupBy('multimedia.multimedia_news')
-				->orderBy('news.news_id','desc')
+				->orderBy('news.news_id', 'desc')
 				->paginate(5);
-			
+
 
 			return view('proyecto')
 				->withManagement($managementArea)
@@ -652,17 +657,33 @@ Route::group(
 				->orderBy('link.link_id', 'desc')
 				->get();
 
-			$news = DB::table('news')
+			$news = DB::table('news_translation')
+				->join('news', 'news.news_id', '=', 'news_translation.news_id')
 				->join('multimedia', 'news.news_id', '=', 'multimedia.multimedia_news')
-				->join('news_translation', 'news.news_id', '=', 'news_translation.news_id')
-				->select('news.news_id', 'news.news_status_id', 'news_translation.news_translation_title', 'news_translation.news_translation_content', 'multimedia.multimedia_name', 'news_translation.news_translation_alias')
+				->select('news.news_id as news_id', 'news.news_status_id as news_status_id', 'news_translation.news_translation_title as news_translation_title', 'news_translation.news_translation_content as news_translation_content', 'multimedia.multimedia_name as multimedia_name', 'news_translation.news_translation_alias as news_translation_alias', 'news_translation.locale as locale')
 				->where('news.news_status_id', 1)
-				->where('news.news_type_id', 2)
+				->where('news.news_type_id', 1)
+				->where('news_translation.locale', app()->getLocale())
 				//esta linea agrupa
-				->groupBy('multimedia.multimedia_news')
-				->orderBy('news.news_id', 'desc')
+				->orderBy('news.created_at', 'desc')
 				->paginate(5);
+			// $news = news::withTranslation()
+			// 	->translatedIn(app()->getLocale())
+			// 	->latest()
+			// 	->paginate(5)
+			// 	->get();
+			// $managementArea = \App\managementArea::firstOrFail();
+			// $userId = Auth::user()->user_id;
 
+			// if ($userId != 1) {
+			// 	$newsTable = news::where('news.news_status_id', '1')
+			// 		->get();
+			// } else {
+			// 	$newsTable = news::All();
+			// }
+			// $newsTypeTable = \App\newsType::All();
+			// $multimediaTable = \App\multimediaType::All();
+			// return dd($news);
 			return view('noticias')
 				->withManagement($managementArea)
 				->withSocial($social)

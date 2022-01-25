@@ -12,23 +12,23 @@
 			<h1>{{$news->news_title}}  {{$news->news_alias}}</h1>
 		</div>
 		<div class="data__name">
-			<p class="name__content">CONTENIDO</p>
+			<p class="name__content">{!!$news->news_translation_title!!}</p>
 		</div>
 		<div class="data__content">
-		@if($news->news_content != null)
-			<p class="content__descrip">{!!$news->news_content!!}</p>
+		@if($news->news_translation_content != null)
+			<p class="content__descrip">{!!$news->news_translation_content!!}</p>
 			@else
 			<p class="content__descrip">Sin descripción</p>
 			@endif
 		</div>
 		<div class="data__date">
-			<label class="date__label">Fecha de Publicación:</label> 
-			<p class="date__info">{{$news->news_create->format('Y-M-d')}} </p>
-			<label class="date__label">Fecha de Modificación:</label>
-			<p class="date__info">{{$news->news_update->format('Y-M-d')}}</p>
+			<label class="date__label">{{ trans('administration.forms.creation-date') }}:</label> 
+			<p class="date__info">{{$news->created_at->format('Y-M-d')}} </p>
+			<label class="date__label">{{ trans('administration.forms.update-date') }}:</label>
+			<p class="date__info">{{$news->updated_at->format('Y-M-d')}}</p>
 		</div>
 		<div class="data__multi">
-			<p class="name__content"> MULTIMEDIA</p>
+			<p class="name__content"> {{ trans('administration.forms.multimedia') }}</p>
 		</div>		
 		<div class="data__multimedia">
 			@forelse($multimedia as $multi)
@@ -80,7 +80,7 @@
 		@endforelse
 		<div class="data__name">
 			<div class="name__link">
-				<a class="fa fa-chevron-circle-left" href="{{route('news')}}"> Atras</a>
+				<a class="fa fa-chevron-circle-left" href="{{route('news')}}"> {{ trans('administration.content.return') }}</a>
 			</div>
 		</div>
 	</div>

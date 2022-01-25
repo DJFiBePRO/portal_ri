@@ -5,12 +5,12 @@
 <head>
     <title>@yield('title') - RI</title>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="icon" href="{{ asset('img/iconos/logo_negro_espoch.ico') }}">
-    @section('estilos')
-    <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css')}}">
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="icon" href="{{ asset('img/iconos/logo_negro_espoch.ico') }}">
+	@section('estilos')
+	<link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/app.css')}}">
     @show
 </head>
 @section('body')

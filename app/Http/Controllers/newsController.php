@@ -117,28 +117,21 @@ class newsController extends Controller
 	{
 
 		$news = news::find($request['newsId']);
-
 		$this->validate($request, [
 
-			'newsTitle' => 'required|max:100|unique:news,news_title,' . $news->news_id . ',news_id',
-			'newsAlias' => 'required|max:100|unique:news,news_alias,' . $news->news_id . ',news_id',
+			'newsTitle' => 'required|max:100|unique:news_translation,news_translation_title,' . $news->news_id . ',news_id',
+			'newsAlias' => 'required|max:100|unique:news_translation,news_translation_alias,' . $news->news_id . ',news_id',
 			'newsDescription' => 'required',
-			'newsDate' => 'date|date_format:Y-m-d',
-
+			'newsDate' => 'date|date_format:Y-m-d',	
 		]);
+		newsTranslation::where('news_id',$news->news_id)->where('locale',app()->getLocale())
+						->update(['news_translation_title'=>$request['newsTitle'],
+								'news_translation_content'=>$request['newsDescription'],
+								'news_translation_alias'=>$request['newsAlias']]);
+		$news->news_status_id   = $request['newsState'];
 
-
-		$news->news_title   = $request['newsTitle'];
-		$news->news_content   = $request['newsDescription'];
-		$news->news_alias   = $request['newsAlias'];
-		if (isset($request->newsState)) {
-			$news->news_state   = $request['newsState'];
-		}
-		$news->news_create = $request['newsDate'];
-
+		$news->created_at = $request['newsDate'];
 		$news->save();
-		unset($request);
-		unset($news);
 		return back()->withMensaje('Operación Exitosa');
 	}
 

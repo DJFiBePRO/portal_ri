@@ -9,6 +9,149 @@
 
 @stop
 @section('main')
+<section>
+	<div class="page__update">
+		<form method="POST" action="{{route('updateNews')}}" class="action__form" id="form__update" enctype= multipart/form-data>
+			<div class="form__title">
+				<h1>{{trans('administration.forms.edit')}}</h1>
+			</div>
+
+			<input type="hidden" name="_token" value="{{csrf_token()}}">
+			<input type="hidden" name="newsId" value="">
+			
+			@if (Auth::user()->user_id == 1)
+
+			<div class="form__container">
+				<div class="container__label">
+					<label for="">{{trans('administration.forms.state')}}:</label>
+				</div>
+				<div class="container__item">
+					<select id="newsState" name="newsState" class="item__select" >
+						<option value=""></option>
+						<option value="1">{{trans('administration.content.published')}}</option>
+						<option value="2">{{trans('administration.content.not-published')}}</option>
+					</select>	
+				</div>
+			</div>
+			
+			@endif
+			<div class="form__container">
+				<div class="container__label">
+					<label for="">{{trans('administration.forms.title')}}: </label>
+				</div>
+				<div class="container__item">
+					<input type="text" name="newsTitle" >
+				</div>					
+			</div>
+
+			<div class="form__container">
+				<div class="container__label">
+					<label for="">{{trans('administration.headers.alias')}}: </label>
+				</div>
+				<div class="container__item">
+					<input type="text" name="newsAlias" >
+				</div>					
+			</div>
+
+			<div class="form__container">
+				<div class="container__label">
+					<label for="">{{trans('administration.forms.description')}}: </label>
+				</div>
+				<div class="container__item">
+					<textarea name="newsDescription" id="newsDescription" ></textarea>
+				</div>
+			</div>
+			
+
+			<div class="form__button">
+				<div class="button__save">						
+					<input type="submit" value="{{trans('administration.forms.save')}}">
+				</div>
+				<div class="button__cancel">
+					<input type="button" class="cancel__btn" value="{{trans('administration.forms.cancel')}}">
+				</div>
+			</div>
+
+		</form>
+	</div>
+</section>
+
+<section>
+	<div class="page__delete">
+		<form method="POST" action="{{route('deleteNews')}}" class="action__form" enctype=multipart/form-data>
+			<div class="form__title">
+				<h1>{{ trans('administration.content.new-delete') }}</h1>
+			</div>
+			<input type="hidden" name="_token" value="{{csrf_token()}}">
+			<input type="hidden" name="newsId">
+
+			<div class="form__container">
+				<div class="container__label">
+					<label for="">{{trans('administration.forms.title')}}: </label>
+				</div>
+				<div class="container__item">
+					<input type="text" name="newsTitle" disabled>
+				</div>
+			</div>
+
+			<div class="form__container">
+				<div class="container__label">
+					<label for="">{{trans('administration.forms.alias')}}: </label>
+				</div>
+				<div class="container__item">
+					<input type="text" name="newsAlias" disabled>
+				</div>
+			</div>
+
+			<div class="form__button">
+				<div class="button__save">
+					<input type="submit" value="{{trans('administration.forms.delete')}}">
+				</div>
+				<div class="button__cancel">
+					<input type="button" class="cancel__btn" value="{{trans('administration.forms.cancel')}}">
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+<section>
+	<div class="page__resource">
+		<form method="POST" action="{{route('addResourcesNews')}}" id="form__resource" class="action__form" enctype= multipart/form-data>
+			<div class="form__title">
+				<h1></h1>
+			</div>
+
+			<input type="hidden" name="_token" value="{{csrf_token()}}">
+			<input type="hidden" name="newsId">
+
+			<div class="form__container" id="contenidoRecurso">
+				<div class="container__label">
+					<label for="">{{trans('administration.content.select')}}:</label>
+				</div>
+				<div class="container__item">
+					<select id="multimediaType" class="item__select" name="multimediaType">
+						<option value="" selected></option>
+						@forelse ($multimedia as $multimedias)
+						<option value="{{$multimedias->multimedia_type_description}}">{{$multimedias->multimedia_type_description}}</option>
+						@empty
+						<option value="">{{trans('administration.content.no-content')}}</option>
+						@endforelse
+					</select>		
+				</div>
+			</div>
+
+			<div class="form__button">
+				<div class="button__save">						
+					<input type="submit" value="{{trans('administration.forms.save')}}">
+				</div>
+				<div class="button__cancel">
+					<input type="button" class="cancel__btn" value="{{trans('administration.forms.cancel')}}">
+				</div>
+			</div>
+		</form>
+	</div>
+</section>
+
 <main>
 	<div class="page__main">
 		<div class="main__title">
@@ -40,10 +183,11 @@
 				<tbody>
 					@forelse($news as $newsData )
 					<tr class="data__info" data-id="{{$newsData->news_id}}"
-						data-titulo="{{!!$newsData->news_translation_title!!}}"
+						data-titulo="{!! $newsData->news_translation_title !!}"
 						data-alias="{{$newsData->news_translation_alias}}"
-						data-contenido="{!!$newsData->news_translation_content!!}"
-						data-estado="{{$newsData->news_status_id }}">
+						data-contenido="{!! $newsData->news_translation_content !!}"
+						data-estado="{{$newsData->news_status_id }}"
+						data-fecha="{{$newsData->created_at}}">
 						<td>{!! $newsData->news_translation_title !!}</td>
 						<td>{!! $newsData->news_translation_content !!}</td>
 						<td>
@@ -54,7 +198,6 @@
 							@if (Auth::user()->user_type != 1)
 							<a class="delete" title="eliminar"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
 							@endif
-
 						</td>
 					</tr>
 					@empty
@@ -94,7 +237,7 @@
 		event.preventDefault();
 		var datos = $(this).closest('.data__info').data();
 		$('.page__resource').slideToggle();
-		$('#form__resource h1').append(datos['alias']);
+		$('#form__resource h1').append(datos['titulo']);
 		$(".action__form input[name=newsId]").val(datos['id']);
 	});
 
@@ -129,42 +272,42 @@
 			if ( $("#archivos").length == 0 ) {
 				$('<div id="archivos" class="form__container">'+
 					'<div class="container__label">'+
-					'<label for="">Archivos</label>'+
+					'<label for="">{{trans('administration.forms.file')}}</label>'+
 					'</div>'+
 					'<div class="container__item">'+
 					'<input type="file" name="archivo[]" multiple >'+
 					'</div>'+
 					'</div').insertAfter('#contenidoRecurso') ;
 			}else{
-				alert('ya se pueden ingresar archivos');
+				alert('{{trans('administration.content.ready')}}');
 			}
 			break;
 			case 'fotografía':
 			if ( $("#fotografias").length == 0 ) {
 				$('<div id="fotografias" class="form__container">'+
 					'<div class="container__label">'+
-					'<label for="">Fotografías</label>'+
+					'<label for="">{{trans('administration.headers.image')}}</label>'+
 					'</div>'+
 					'<div class="container__item">'+
 					'<input type="file" name="foto[]" multiple>'+
 					'</div>'+
 					'</div').insertAfter('#contenidoRecurso') ;
 			}else{
-				alert('ya se pueden ingresar fotografías');
+				alert('{{trans('administration.content.ready')}}');
 			}
 			break;
 			case 'enlace':
 			if ( $("#enlaces").length == 0 ) {
 				$('<div id="enlaces" class="form__container">'+
 					'<div class="container__label">'+
-					'<label for="">Enlaces</label>'+
+					'<label for="">{{trans('administration.nav.links')}}</label>'+
 					'</div>'+
 					'<div class="container__item">'+
 					'<input type="text" name="enlace[]" >&nbsp;<i id="agregar-enlace" class="fa fa-plus"></i>'+
 					'</div>'+
 					'</div').insertAfter('#contenidoRecurso') ;
 			}else{
-				alert('ya se pueden ingresar enlaces');
+				alert('{{trans('administration.content.ready')}}');
 			}
 			break;
 		}
@@ -208,11 +351,13 @@
 		// 	CKEDITOR.add
     	// });
 	});
-	var allEditors = document.querySelectorAll('.editor');
-        for (var i = 0; i < allEditors.length; ++i) {
-          CKEDITOR.replace(allEditors[i]);
-		  CKEDITOR.config.forcePasteAsPlainText = true;
-        }
+	// var allEditors = document.querySelectorAll('.editor');
+    //     for (var i = 0; i < allEditors.length; ++i) {
+    //       CKEDITOR.replace(allEditors[i]);
+	// 	  CKEDITOR.config.forcePasteAsPlainText = true;
+    //     }
+	CKEDITOR.replace( 'newsDescription' );
+	CKEDITOR.config.forcePasteAsPlainText = true;
 	
 
 </script>

@@ -12,7 +12,7 @@
 	<div class="page__update">
 		<form method="POST" action="{{route('updatePassword')}}" class="action__form" enctype= multipart/form-data id="formUpdate">
 			<div class="form__title">
-				<h1>Cambiar Contraseña</h1>
+				<h1>{{trans('administration.forms.cambiar')}}</h1>
 			</div>
 
 			<input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -29,7 +29,7 @@
 
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Nueva Contraseña: </label>
+					<label for="">{{trans('administration.forms.name')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="password" name="userNewPassword" required>
@@ -38,10 +38,10 @@
 
 			<div class="form__button">
 				<div class="button__save">						
-					<input type="submit" value="Guardar">
+					<input type="submit" value="{{trans('administration.forms.save')}}">
 				</div>
 				<div class="button__cancel">
-					<input type="button"  id="updateBtn" value="Cancelar">
+					<input type="button"  id="updateBtn" value="{{trans('administration.forms.cancel')}}">
 				</div>
 			</div>
 
@@ -53,11 +53,11 @@
 	<div class="page__main">		
 		<div class="main__insert">
 			<div class="main__title">
-				<h1>Usuarios {{$management->management_area_name}} </h1>
+				<h1>{{trans('administration.forms.vice-2')}} </h1>
 			</div>
 			<div class="main__boton">
 				@if (Auth::user()->user_type == 1)
-				<a href="{{route('newUser')}}"><i class="fa fa-plus"></i>Nuevo</a>
+				<a href="{{route('newUser')}}"><i class="fa fa-plus"></i>{{trans('administration.forms.new')}}</a>
 				@endif
 			</div>
 		</div>
@@ -99,18 +99,18 @@
 					</div>
 					<div class="data__name">
 						<div class="data__item">
-							<label>Nombres:</label>
+							<label>{{trans('administration.forms.name')}}:</label>
 							<input type="text" name="userName"  value="{{$userData->user_name}}" >
 						</div>
 
 						<div class="data__item">
-							<label>Apellidos:</label>
+							<label>{{trans('administration.forms.last-name')}}:</label>
 							<input type="text" name="userLastName" value="{{$userData->user_last_name}}" >
 						</div>
 						<div class="data__item">
-							<label>Nueva Contraseña:</label>
+							<label>{{trans('administration.forms.password')}}:</label>
 							@if (Auth::user()->user_id == $userData->user_id)
-							<input type="button" name="userPassword" class="update" value="Cambiar Contraseña" >
+							<input type="button" name="userPassword" class="update" value="{{trans('administration.forms.edit')}}" >
 							@else
 							<input type="password" name="userNewPassword" >
 
@@ -120,7 +120,7 @@
 					<div class="data__name">
 						@if (Auth::user()->user_type == 1)
 						<div class="data__item">
-							<label>Tipo:</label>
+							<label>{{trans('administration.forms.type')}}:</label>
 							<select name="userType" required >
 								@forelse($types as $userType)
 								@if($userData->user_type != $userType->user_type_id)
@@ -138,11 +138,11 @@
 						<input type="hidden" name="userType" value="{{Auth::user()->user_type}}">
 						@endif
 						<div class="data__item">
-							<label>Correo:</label>
+							<label>{{trans('administration.forms.email')}}:</label>
 							<input type="text" name="userMail" value="{{$userData->user_mail}}" >
 						</div>
 						<div class="data__item">
-							<label>Teléfono:</label>
+							<label>{{trans('administration.forms.phone')}}:</label>
 							<input type="text" name="userPhone" value="{{$userData->user_phone}}">
 						</div>
 
@@ -151,10 +151,10 @@
 
 					<div class="data__button">
 						<div>
-							<input type="submit" name="btnGuardar" value="Modificar">
+							<input type="submit" name="btnGuardar" value="{{trans('administration.forms.edit')}}">
 						</div>
 						<div>
-							<input type="button"  name="btnCancelar" class="cancel__btn" value="Cancelar">
+							<input type="button"  name="btnCancelar" class="cancel__btn" value="{{trans('administration.forms.cancel')}}">
 						</div>
 					</div>
 				</div>

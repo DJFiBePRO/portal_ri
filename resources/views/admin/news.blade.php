@@ -18,7 +18,7 @@
 				@if (Auth::user()->user_type == 4)
 				<h1>Modificar Oferta Laboral</h1>
 				@else
-				<h1>Modificar Noticias</h1>
+				<h1>{{ trans('administration.content.news-edit') }}</h1>
 				@endif
 			</div>
 
@@ -28,19 +28,19 @@
 
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Estado:</label>
+					<label for="">{{trans('administration.forms.state')}}:</label>
 				</div>
 				<div class="container__item">
 					<select id="newsState" name="newsState" class="item__select">
 						<option value=""></option>
-						<option value="0">No Publicada</option>
-						<option value="1">Publicada</option>
+						<option value="0">{{trans('administration.forms.state-1')}}</option>
+						<option value="1">{{trans('administration.forms.state-2')}}</option>
 					</select>
 				</div>
 			</div>
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Fecha Publicacion: </label>
+					<label for="">{{trans('administration.forms.event-date')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="text" name="newsDate" class="fecha">
@@ -49,7 +49,7 @@
 			@endif
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Título: </label>
+					<label for="">{{trans('administration.forms.title')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="text" name="newsTitle">
@@ -58,7 +58,7 @@
 
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Alias: </label>
+					<label for="">{{trans('administration.forms.alias')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="text" name="newsAlias">
@@ -67,7 +67,7 @@
 
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Descripción: </label>
+					<label for="">{{trans('administration.forms.description')}}: </label>
 				</div>
 				<div class="container__item">
 					<textarea name="newsDescription" id="newsDescription"></textarea>
@@ -77,10 +77,10 @@
 
 			<div class="form__button">
 				<div class="button__save">
-					<input type="submit" value="Guardar">
+					<input type="submit" value="{{trans('administration.forms.save')}}">
 				</div>
 				<div class="button__cancel">
-					<input type="button" class="cancel__btn" value="Cancelar">
+					<input type="button" class="cancel__btn" value="{{trans('administration.forms.cancel')}}">
 				</div>
 			</div>
 
@@ -92,14 +92,14 @@
 	<div class="page__delete">
 		<form method="POST" action="{{route('deleteNews')}}" class="action__form" enctype=multipart/form-data>
 			<div class="form__title">
-				<h1>Eliminar Noticia</h1>
+				<h1>{{ trans('administration.content.new-delete') }}</h1>
 			</div>
 			<input type="hidden" name="_token" value="{{csrf_token()}}">
 			<input type="hidden" name="newsId">
 
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Título: </label>
+					<label for="">{{trans('administration.forms.title')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="text" name="newsTitle" disabled>
@@ -108,7 +108,7 @@
 
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Alias: </label>
+					<label for="">{{trans('administration.forms.alias')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="text" name="newsAlias" disabled>
@@ -117,10 +117,10 @@
 
 			<div class="form__button">
 				<div class="button__save">
-					<input type="submit" value="Eliminar">
+					<input type="submit" value="{{trans('administration.forms.delete')}}">
 				</div>
 				<div class="button__cancel">
-					<input type="button" class="cancel__btn" value="Cancelar">
+					<input type="button" class="cancel__btn" value="{{trans('administration.forms.cancel')}}">
 				</div>
 			</div>
 		</form>
@@ -140,7 +140,7 @@
 
 			<div class="form__container" id="contenidoRecurso">
 				<div class="container__label">
-					<label for="">Seleccione el tipo de contenido a agregar:</label>
+					<label for="">{{ trans('administration.content.select') }}:</label>
 				</div>
 				<div class="container__item">
 					<select id="multimediaType" class="item__select" name="multimediaType">
@@ -173,7 +173,7 @@
 			@if (Auth::user()->user_type == 4)
 			<h1>Ofertas laborales {{Auth::user()->user_name." ".Auth::user()->user_last_name}}</h1>
 			@else
-			<h1>Noticias {{$management->management_area_name}}</h1>
+			<h1>{{ trans('administration.titles.news') }} {{ trans('administration.page-titles.vice') }}</h1>
 			@endIf
 		</div>
 
@@ -209,68 +209,68 @@
 					</div>
 					@foreach (config('laravellocalization.supportedLocales') as $locale => $value)
 
-						<h1>{{$locale}}</h1> 
-						<div class="form__container">
-							<div class="container__label">
-								<label for="">{{trans('administration.forms.title')}}:</label>
-							</div>
-							<div class="container__item ">
-								<input type="text" name="{{$locale}}[newsTitle]"
-									placeholder="{{trans('administration.forms.input')}}">
-							</div>
+					<h1>{{$value['native']}}</h1>
+					<div class="form__container">
+						<div class="container__label">
+							<label for="">{{trans('administration.forms.title')}}:</label>
 						</div>
+						<div class="container__item ">
+							<input type="text" name="{{$locale}}[newsTitle]"
+								placeholder="{{trans('administration.forms.input')}}">
+						</div>
+					</div>
 
-						<div class="form__container">
-							<div class="container__label">
-								<label for="">{{trans('administration.forms.alias')}}: </label>
-							</div>
-							<div class="container__item">
-								<input type="text" name="{{$locale}}[newsAlias]"
-									placeholder="{{trans('administration.forms.input-2')}}">
-							</div>
+					<div class="form__container">
+						<div class="container__label">
+							<label for="">{{trans('administration.forms.alias')}}: </label>
 						</div>
+						<div class="container__item">
+							<input type="text" name="{{$locale}}[newsAlias]"
+								placeholder="{{trans('administration.forms.input-2')}}">
+						</div>
+					</div>
 
-						<div class="form__container">
-							<div class="container__label">
-								<label for="">{{trans('administration.forms.description')}}: </label>
-							</div>
-							<div class="container__item">
-								<textarea name="{{$locale}}[newsDescription]" id="description-" class="editor"></textarea>
-							</div>
+					<div class="form__container">
+						<div class="container__label">
+							<label for="">{{trans('administration.forms.description')}}: </label>
 						</div>
+						<div class="container__item">
+							<textarea name="{{$locale}}[newsDescription]" id="description-" class="editor"></textarea>
+						</div>
+					</div>
 
-						@if(Session::has('mensaje'))
-						<div class="form__container">
-							<div id="mensaje">
-								{{Session::get('mensaje')}}
-							</div>
+					@if(Session::has('mensaje'))
+					<div class="form__container">
+						<div id="mensaje">
+							{{Session::get('mensaje')}}
 						</div>
-						@endIf
+					</div>
+					@endIf
 
-						@if (count($errors) > 0)
-						<div class="form__container">
-							<ul id="mensaje">
-								@foreach ($errors->all() as $error)
-								<li>{{ $error }}</li>
-								@endforeach
-							</ul>
-						</div>
-						@endif
+					@if (count($errors) > 0)
+					<div class="form__container">
+						<ul id="mensaje">
+							@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+					@endif
 
-						@endforeach
-						<div class="form__button">
-							<div class="button__save">
-								<input type="submit" value="{{trans('administration.forms.new')}}" id="a">
-							</div>
-							<div class="button__cancel">
-								<input type="button" class="cancel__btn" id="cancel__btn"
-									value="{{trans('administration.forms.cancel')}}">
-							</div>
+					@endforeach
+					<div class="form__button">
+						<div class="button__save">
+							<input type="submit" value="{{trans('administration.forms.save')}}" id="a">
 						</div>
+						<div class="button__cancel">
+							<input type="button" class="cancel__btn" id="cancel__btn"
+								value="{{trans('administration.forms.cancel')}}" href="{{route('news')}}">
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>
-		<div class="main__content">
+		{{-- <div class="main__content">
 			@if (Auth::user()->user_type == 4)
 			<h2>Ofertas Laborales Existentes</h2>
 			@else
@@ -285,12 +285,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					{{-- @forelse($news as $newsData )
-					<tr class="data__info" data-id="{{$newsData->news_id}}" data-titulo="{{$newsData->news_title}}"
-						data-alias="{{$newsData->news_alias}}" data-contenido="{!!$newsData->news_content!!}"
-						data-estado="{{$newsData->news_state}}">
-						<td>{{$newsData->news_title}}</td>
-						<td>{!!$newsData->news_content!!}</td>
+					@forelse($news as $newsData )
+					<tr class="data__info" data-id="{{$newsData->news_id}}"
+						data-titulo="{{!!$newsData->news_translation_title!!}}"
+						data-alias="{{$newsData->news_translation_alias}}"
+						data-contenido="{!!$newsData->news_translation_content!!}"
+						data-estado="{{$newsData->news_status_id }}">
+						<td>{!! $newsData->news_translation_title !!}</td>
+						<td>{!! $newsData->news_translation_content !!}</td>
 						<td>
 							<a href="{{ route('newsData',[$newsData->news_id]) }}" title="visualizar" href=""><i
 									class="fa fa-search" aria-hidden="true"></i></a>
@@ -308,11 +310,11 @@
 						<td class="table__msj">! No hay noticas agregadas...</td>
 						<td></td>
 					</tr>
-					@endforelse --}}
+					@endforelse
 
 				</tbody>
 			</table>
-		</div>
+		</div> --}}
 	</div>
 </main>
 @stop
@@ -354,19 +356,23 @@
 		$('.action__form #newsState').val(datos['estado']);
 	}
 
+	// $('input.cancel__btn').click(function(event) {
+	// 	$(this).closest('.page__delete , .page__update , .page__resource').slideToggle();
+	// 	$('#form__resource h1').empty();
+	// 	$('.action__form #archivos').remove();
+	// 	$('.action__form #fotografias').remove();
+	// 	$('.action__form #enlaces').remove();
+	// 	$('#form__insert')[0].reset();
+	// 	$('#form__resource')[0].reset();
+	// });
+
 	$('input.cancel__btn').click(function(event) {
-		$(this).closest('.page__delete , .page__update , .page__resource').slideToggle();
-		$('#form__resource h1').empty();
-		$('.action__form #archivos').remove();
-		$('.action__form #fotografias').remove();
-		$('.action__form #enlaces').remove();
-		$('#form__insert')[0].reset();
-		$('#form__resource')[0].reset();
+		location.href="news";
 	});
 
-	$('#cancel__btn').click(function(event){
-		location.reload();
-	});
+	// $('#cancel__btn').click(function(event){
+	// 	location.reload();
+	// });
 
 	$('#multimediaType').on('change',function(elemento){
 		switch($(this).find("option:selected").html().toLowerCase()){

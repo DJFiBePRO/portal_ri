@@ -18,7 +18,7 @@ return [
     'welcome' => 'Bienvenido',
     'nav' => [
         'home' => 'Inicio',
-        'vice' => 'Vicerrectorado',
+        'vice' => 'Relaciones Internacionales',
         'authorities' => 'Autoridades',
         'languages' => 'Idiomas',
         'settings' => 'Configuración',
@@ -30,7 +30,10 @@ return [
         'category' => 'Categorías',
         'gallery' => 'Galerías',
         'slider' => 'Slider',
-        'collaborators' => 'Collaboradores'
+        'collaborators' => 'Collaboradores',
+        'manager'=>'Directivos',
+        'param'=>'Parametrización',
+        'agreements' => 'Convenios',
     ],
     'sub-nav' => [
         'contacts' => 'Contáctos',
@@ -51,6 +54,9 @@ return [
         'add-news' => 'Agregar Noticias',
         'add-labs' => 'Agregar Labratorio',
         'add-user' => 'Agregar Usuario',
+        'add-download'=>'Agregar Descarga',
+        'add-social'=>'Agregar Red Social',
+        'add-agreement'=>'Agregar Convenios',
         'existing-news'=>'Noticias Existentes',
         'add-publication' => 'Agregar Publicación',
         'add-institution' => 'Agregar Institución',
@@ -96,6 +102,8 @@ return [
         'university' => "Universidad",
         'country' => "País",
         'continent' => "Continente",
+        'resolution'=>'Resolución',
+        'validity'=>'Validez',
 
     ],
     'headers' => [
@@ -137,8 +145,14 @@ return [
         'search' => 'Búsqueda',
         'responsabilities' => 'Responsabilidades',
         'releases' => 'Comunicados',
+        'agreement'=>'Convenio',
     ],
     'forms' => [
+        'vice'=>'Datos Generales Relaciones Internacionales',
+        'vice-1'=>'Directivos Relaciones Internacionales',
+        'vice-2'=>'Usuarios Relaciones Internacionales',
+        'vice-3'=>'Red Social',
+        'vice-4'=>'Convenios Relaciones Internacionales',
         'address' => 'Dirección',
         'back' => 'Atrás',
         'abstract' => 'Resumen',
@@ -152,6 +166,7 @@ return [
         'faculty' => 'Facultad',
         'research-line' => 'Línea de Investigación',
         'curriculum-vitae' => 'Hoja de Vida',
+        'new-curriculum-vitae' => 'Nueva Hoja de Vida',
         'description' => 'Descripción',
         'delete' => 'Eliminar',
         'staff' => 'Agregar Integrantes',
@@ -160,6 +175,7 @@ return [
         'email' => 'Correo',
         'file-max-size' => 'Tamaño máximo de archivo',
         'post-max-size' => 'Tamaño máximo de carga',
+        'name'=>'Nombre',
         'last-name' => 'Apellido',
         'logo' => 'Logo',
         'mission' => 'Misión',
@@ -204,12 +220,20 @@ return [
         'event-date' => "Fecha Realización",
         'about' => "¿Quienes Somos?",
         'agreements' => "Convenios Existentes",
-        
+        'cambiar'=>'Cambiar Contraseña',
+        'state-1'=>'No Publicada',
+        'state-2'=>'Publicada',
+        'document'=>'Documento',
+        'download'=>'Descargas',
+        'download-existing'=>'Descargas Existentes',
+        'social-existing'=>'Red Social Existente',
     ],
     'messages' => [
         'delete' => 'Desea eliminar el ítem ',
         'modify' => 'Desea guardar los cambios ',
         'info'=>'No existen tipos de noticias',
+        'info-1'=>'No existen cargos',
+        'info-2'=>'¡No hay convenios agregados!',
     ],
     'content' => [
         'settings' => 'En esta página usted podrá encontrar los enlaces para modificar las principales categorías como: tipos de Usuarios, autoridades, multimedia y noticias',
@@ -243,6 +267,14 @@ return [
         'multimedia-type' => 'Tipos de Multimedia Existentes',
         'news-type' => 'Tipos de Noticias Existentes',
         'ready' => 'Ya se puede ingresar',
-        'no-releases' => 'No existen comunicados a visualizar'
-    ]
+        'no-releases' => 'No existen comunicados a visualizar',
+        'download-edit'=>'Modificar Descargas',
+        'download-delete'=>'Eliminar Descargas',
+        'social-edit'=>'Modificar Red Social',
+        'social-delete'=>'Eliminar Red Social',
+        'select'=>'Seleccione el tipo de contenido a agregar',
+        'news-delete'=>'Eliminar Noticia',
+        'news-edit'=>'Modificar Noticia',
+        'return'=>'Regresar',
+        ]
 ];

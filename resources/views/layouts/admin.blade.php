@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 	<title>@yield('title') - RI</title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="viewport"
+		content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 	<link rel="icon" href="{{ asset('img/iconos/drni.jpeg') }}">
 	@section('styles')
@@ -16,6 +18,7 @@
 	@show
 </head>
 @section('body')
+
 <body class="inicio" id="noticias">
 	@section('header')
 	<header>
@@ -23,9 +26,18 @@
 			<div class="header__title"><span class="header__span"> {{$management->management_area_name}}</span>
 				<a class="header__act"> <i class="fa fa-bars fa-2x"></i> </a>
 			</div>
-			
+
 			<div class="header__out">
-				<a class="header__a" href="{{ route('logout') }}">Cerrar Sesión</a>
+				<div class="page__lang">
+					@foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+
+					<a class="header__a" rel="alternate" hreflang="{{ $localeCode }}"
+						href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+						{{ $properties['native'] }}
+					</a>&nbsp&nbsp
+					@endforeach
+				</div> 
+				<a class="header__a" href="{{ route('logout') }}">{{trans('administration.exit')}}</a>
 			</div>
 		</div>
 	</header>
@@ -39,47 +51,46 @@
 					<img src="{{asset('img/logos/'.$management->management_area_logo)}}" alt="">
 				</a>
 				<span>
-					Bienvenido
+					{{trans('administration.welcome')}}
 				</span>
 			</div>
 			<div class="nav__menu">
 				<ul>
 					@if (Auth::user()->user_type == 1)
-					<li><a href="{{route('inicio')}}"><i class="fa fa-plus"></i> Relaciones Internacionales</a></li>
-					<li><a href="{{route('authority')}}"><i class="fa fa-plus"></i> Directivos</a></li>
-					<li><a href="{{route('user')}}"><i class="fa fa-plus"></i> Usuarios</a></li>
+					<li><a href="{{route('inicio')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.vice')}}</a></li>
+					<li><a href="{{route('authority')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.manager')}}</a></li>
+					<li><a href="{{route('user')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.users')}}</a></li>
 					<!--<li><a href="{{route('faculty')}}"><i class="fa fa-plus"></i> Ejes Principales</a></li>-->
 					<!--<li><a href="{{route('culturalManagement')}}"><i class="fa fa-plus"></i> Gestión Cultural</a></li>-->
-					<li><a href="{{route('news')}}"><i class="fa fa-plus"></i> Noticias</a></li>
+					<li><a href="{{route('news')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.news')}}</a></li>
 					<!--<li><a href="{{route('gallery')}}"><i class="fa fa-plus"></i> Galerías</a></li>-->
 					<!--<li><a href="{{route('category')}}"><i class="fa fa-plus"></i> Categorías</a></li>-->
 					<!--<li><a href="{{route('link')}}"><i class="fa fa-plus"></i> Enlaces</a></li>-->
-					<li><a href="{{route('download')}}"><i class="fa fa-plus"></i> Descargas</a></li>
+					<li><a href="{{route('download')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.downloads')}}</a></li>
 					<!--<li><a href="{{route('magazines')}}"><i class="fa fa-plus"></i> Revistas</a></li>-->
-					<li><a href="{{route('socialNetwork'	)}}"><i class="fa fa-plus"></i> Redes Sociales</a></li>
-					<li><a href="{{route('parameterization')}}"><i class="fa fa-plus"></i> Parametrización</a></li>
-					<li><a href="{{route('covenant.index')}}"><i class="fa fa-plus"></i> Convenios</a></li>
+					<li><a href="{{route('socialNetwork'	)}}"><i class="fa fa-plus"></i> {{trans('administration.nav.social-network')}}</a></li>
+					<li><a href="{{route('parameterization')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.param')}}</a></li>
+					<li><a href="{{route('covenant.index')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.agreements')}}</a></li>
 					@elseif (Auth::user()->user_type == 2)
-					<li><a href="{{route('mission')}}"><i class="fa fa-plus"></i> Relaciones Internacionales</a></li>
-					<li><a href="{{route('authority')}}"><i class="fa fa-plus"></i> Directivos</a></li>
+					<li><a href="{{route('mission')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.vice')}}</a></li>
+					<li><a href="{{route('authority')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.manager')}}</a></li>
 					<!--<li><a href="{{route('faculty')}}"><i class="fa fa-plus"></i> Ejes Principales</a></li>-->
 					<!--<li><a href="{{route('culturalManagement')}}"><i class="fa fa-plus"></i> Gestión Cultural</a></li>-->
-					<li><a href="{{route('news')}}"><i class="fa fa-plus"></i> Noticias</a></li>
+					<li><a href="{{route('news')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.news')}}</a></li>
 					<!--<li><a href="{{route('gallery')}}"><i class="fa fa-plus"></i> Galerías</a></li>-->
 					<!--<li><a href="{{route('category')}}"><i class="fa fa-plus"></i> Categorías</a></li>-->
 					<!--<li><a href="{{route('link')}}"><i class="fa fa-plus"></i> Enlaces</a></li>-->
-					<li><a href="{{route('download')}}"><i class="fa fa-plus"></i> Descargas</a></li>
+					<li><a href="{{route('download')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.downloads')}}</a></li>
 					<!--<li><a href="{{route('magazines')}}"><i class="fa fa-plus"></i> Revistas</a></li>-->
-					<li><a href="{{route('socialNetwork')}}"><i class="fa fa-plus"></i> Redes Sociales</a></li>
-					<li><a href="{{route('user')}}"><i class="fa fa-plus"></i> Usuario</a></li>
+					<li><a href="{{route('socialNetwork')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.social-network')}}</a></li>
+					<li><a href="{{route('user')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.users')}}</a></li>
 					@elseif(Auth::user()->user_type == 4)
 					<!--<li><a href="{{route('news')}}"><i class="fa fa-plus"></i> Oferta Laboral</a></li>-->
 					@else
-					<li><a href="{{route('news')}}"><i class="fa fa-plus"></i> Noticias</a></li>
+					<li><a href="{{route('news')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.news')}}</a></li>
 					<!--<li><a href="{{route('gallery')}}"><i class="fa fa-plus"></i> Galerías</a></li>-->
-					<li><a href="{{route('user')}}"><i class="fa fa-plus"></i> Usuario</a></li>
+					<li><a href="{{route('user')}}"><i class="fa fa-plus"></i> {{trans('administration.nav.users')}}</a></li>
 					@endif
-					
 				</ul>
 			</div>
 		</div>
@@ -104,4 +115,5 @@
 	@show
 </body>
 @show
+
 </html>

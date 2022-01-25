@@ -69,7 +69,7 @@
             @if (Auth::user()->user_type == 4)
             <h1>Ofertas laborales {{Auth::user()->user_name." ".Auth::user()->user_last_name}}</h1>
             @else
-            <h1>Convenios {{$management->management_area_name}}</h1>
+            <h1>{{ trans('administration.forms.vice-4') }}</h1>
             @endIf
         </div>
 
@@ -78,7 +78,7 @@
                 @if (Auth::user()->user_type == 4)
                 <h2>Agregar Oferta Laboral</h2>
                 @else
-                <h2>Agregar Convenios </h2>
+                <h2>{{ trans('administration.titles.add-agreement') }} </h2>
                 @endIf
             </div>
             <div class="insert__form">
@@ -86,7 +86,7 @@
                     {{ csrf_field() }}
                     <div class="form__container">
                         <div class="container__label">
-                            <label>Ingrese caracter:</label>
+                            <label>{{ trans('administration.page-titles.caracter') }}:</label>
                         </div>
                         <div class="container__item ">
                             <select style="width:90%" name="caracter" id="caracter" required>
@@ -99,7 +99,7 @@
                     <br>
                     <div class="form__container">
                         <div class="container__label">
-                            <label>Ingrese Universidad:</label>
+                            <label>{{ trans('administration.page-titles.university') }}:</label>
                         </div>
                         <div class="container__item ">
                             <input type="text" maxlength="20" onkeypress="return soloLetras(event);"
@@ -110,7 +110,7 @@
                     <br>
                     <div class="form__container">
                         <div class="container__label">
-                            <label>Seleccione Continente:</label>
+                            <label>{{ trans('administration.page-titles.continent') }}:</label>
                         </div>
                         <div class="container__item ">
                             <select style="width:90% "  id="idContinent" required>
@@ -125,7 +125,7 @@
                     <br>
                     <div class="form__container">
                         <div class="container__label">
-                            <label>Seleccione País:</label>
+                            <label>{{ trans('administration.page-titles.country') }}:</label>
                         </div>
                         <div class="container__item">
 
@@ -137,7 +137,7 @@
                     <br>
                     <div class="form__container">
                         <div class="container__label">
-                            <label>Ingrese Resolución:</label>
+                            <label>{{ trans('administration.page-titles.resolution') }}:</label>
                         </div>
                         <div class="container__item ">
                             <input type="file"  name="resolution">
@@ -146,7 +146,7 @@
                     <br>
                     <div class="form__container">
                         <div class="container__label">
-                            <label>Ingrese Validación:</label>
+                            <label>{{ trans('administration.page-titles.validity') }}:</label>
                         </div>
                         <div class="container__item ">
                             <input type="text" maxlength="20" onkeypress="return soloLetras(event);"
@@ -174,10 +174,10 @@
                     @endif
                     <div class="form__button">
                         <div class="button__save">
-                            <input type="submit" value="Agregar" id="a">
+                            <input type="submit" value="{{ trans('administration.forms.save') }}" id="a">
                         </div>
                         <div class="button__cancel">
-                            <input type="button" class="cancel__btn" id="cancel__btn" value="Cancelar">
+                            <input type="button" class="cancel__btn" id="cancel__btn" value="{{ trans('administration.forms.save') }}">
                         </div>
                     </div>
                 </form>
@@ -186,14 +186,14 @@
                 @if (Auth::user()->user_type == 4)
                 <h2>Ofertas Laborales Existentes</h2>
                 @else
-                <h2>Convenios Existentes</h2>
+                <h2>{{ trans('administration.forms.agreements') }}</h2>
                 @endIf
                 <table class="content__table" id="news">
                     <thead class="table__head">
                         <tr>
-                            <th>Caracter</th>
-                            <th>Universidad</th>
-                            <th>Acciones</th>
+                            <th>{{ trans('administration.page-titles.caracter') }}</th>
+                            <th>{{ trans('administration.page-titles.university') }}</th>
+                            <th>{{ trans('administration.headers.actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -224,7 +224,7 @@
                         @empty
                         <tr>
                             <td></td>
-                            <td class="table__msj">¡No hay convenios agregados!...</td>
+                            <td class="table__msj">{{ trans('administration.messages.info-2') }}...</td>
                             <td></td>
                         </tr>
                         @endforelse

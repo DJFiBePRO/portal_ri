@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewsRequest;
 use Auth;
-use App\news;
+use App\{news, newsTranslation, newsType, newsStatus};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -14,82 +14,57 @@ class newsController extends Controller
 {
 	public function show()
 	{
+		$news=news::withTranslation()
+		->translatedIn(app()->getLocale())
+		 ->latest()
+		 ->take(10)
+		->get();
 		$managementArea = \App\managementArea::firstOrFail();
 		$userId = Auth::user()->user_id;
-		$userType = Auth::user()->user_type;
-		if ($userId != 1) { //Logueado y si no es administrador
-			if ($userType == 4) { //si es empresa
-				$newsTable = news::where('news_user', $userId)->orderBy('updated_at', 'desc')->get();
-			} else {
-				$newsTable = news::orderBy('updated_at', 'desc')->get();
-			}
-		} else { //No logueado
-			$newsTable = news::orderBy('updated_at', 'desc')->get();
+		
+		if ($userId!=1){
+			$newsTable = news::
+			where('news.news_status_id','1')
+			->get();
+
+		}else{
+			$newsTable = news::All();
 		}
-		if ($userType != 4) {
-			$newsTypeTable = \App\newsType::All();
-		} else {
-			$newsTypeTable = \App\newsType::where('news_type_id', 3)->get();
-		}
+		$newsTypeTable = \App\newsType::All();
 		$multimediaTable = \App\multimediaType::All();
 
-		$languages = LaravelLocalization::getSupportedLocales();
-		$iterador = 1;
-		foreach ($languages as $key => $value) {
-			$locales[] = [
-				'locale_id' => $iterador++,
-				'locale_name' => $key,
-			];
-		}
+		return view ('admin.news')
+		->withManagement($managementArea)
+		->withNews($news)
+		->withMultimedia($multimediaTable)
+		->withTypes($newsTypeTable);
+	}
+	public function showNew()
+	{
+		$news=news::withTranslation()
+		->translatedIn(app()->getLocale())
+		 ->latest()
+		 ->take(10)
+		->get();
+		$managementArea = \App\managementArea::firstOrFail();
+		$userId = Auth::user()->user_id;
+		
+		if ($userId!=1){
+			$newsTable = news::
+			where('news.news_status_id','1')
+			->get();
 
-		$encabezados_locale = [
-			"es" => "Español",
-			"en" => "Inglés",
-			"fr" => "Francés",
-			"de" => "Alemán",
-			"it" => "Italiano",
-			"pt" => "Portugués",
-			"ru" => "Ruso",
-			"ar" => "Árabe",
-			"zh" => "Chino",
-			"ja" => "Japonés",
-			"ko" => "Coreano",
-			"pl" => "Polaco",
-			"sv" => "Sueco",
-			"tr" => "Turco",
-			"el" => "Griego",
-			"hi" => "Hindi",
-			"fa" => "Farsi",
-			"vi" => "Vietnamita",
-			"th" => "Tailandés",
-			"id" => "Indonesio",
-			"ms" => "Malayo",
-			"tl" => "Tagalo",
-			"no" => "Noruego",
-			"fi" => "Finlandés",
-			"hu" => "Húngaro",
-			"cs" => "Checo",
-			"ro" => "Rumano",
-			"sk" => "Eslovaco",
-			"uk" => "Ucraniano",
-			"sl" => "Esloveno",
-			"hr" => "Croata",
-			"ca" => "Catalán",
-			"eu" => "Euskera",
-			"da" => "Danés",
-			"he" => "Hebreo",
-			"ur" => "Urdu",
-		];
-		//$locales=(object)$locales;
-		//return dd($languages);
-		$gh=config('laravellocalization.supportedLocales') ;
-		return view('admin.news')
-			->withManagement($managementArea)
-			->withNews($newsTable)
-			->withMultimedia($multimediaTable)
-			->withTypes($newsTypeTable)
-			->withLocales($locales)
-			->withEncabezados($encabezados_locale);
+		}else{
+			$newsTable = news::All();
+		}
+		$newsTypeTable = \App\newsType::All();
+		$multimediaTable = \App\multimediaType::All();
+
+		return view ('admin.newsShow')
+		->withManagement($managementArea)
+		->withNews($news)
+		->withMultimedia($multimediaTable)
+		->withTypes($newsTypeTable);
 	}
 
 	public function showData($newsId)
@@ -109,76 +84,19 @@ class newsController extends Controller
 
 	public function store(NewsRequest $request)
 	{
-
-		// $datos=[]
-		// news::create([
-		// 	'news_status_id' => 1,
-		// 	'user_id'=> Auth::user()->user_id,
-		// 	'news_type_id' => $request->newsType,
-		// 	'management_area_id' => 1,
-		// 	// $request->validated(
-				
-		// 	)
-		// ]);
-		
-		//$news->newsRealizationDate =  $request['newsRealizationDate'];
-
-		// $news->save();
-
-		// for ($i = 0; $i < count($locales); $i++) {
-		// 	$this->validate($request, [
-
-		// 		"newsTitle-$i+1" => 'required',
-		// 		"newsAlias-$i+1"   => 'required',
-		// 		"newsDescription-$i+1"  => 'required',
-		// 	]);
-			// $news->translateOrNew($locales[$i]['locale_name'])->news_translation_title = $request->newsTitle-"$i+1;"
-			// $news->translateOrNew($locales[$i]['locale_name'])->news_translation_content = $request->newsDescription";
-			// $news->translateOrNew($locales[$i]['locale_name'])->news_translation_alias = $request->newsAlias-"$i+1";
-		//}
-		//$news->save();
-
-		
-
-		
-
-
-		// $news->translateOrNew('en')->news_translation_title = $request->newsTitle;
-		// $news->translateOrNew('en')->news_translation_content = $request->newsDescription;
-		// $news->translateOrNew('en')->news_translation_alias = $request->newsAlias;
-
-		// $news->translateOrNew('es')->news_translation_title = $request->newsTitle;
-		// $news->translateOrNew('es')->news_translation_content = $request->newsDescription;
-		// $news->translateOrNew('es')->news_translation_alias = $request->newsAlias;
-
-
-		// $news->save();
-
-		// $news = new news();
-		// /*Controlar segun tipo de usuario*/
-		// $userId = Auth::user()->user_id;
-		// $userType = Auth::user()->user_type;
-		// if ($userType == 4) {
-		// 	$news->news_user = $userId;
-		// 	$news->news_state = 0;
-		// } else {
-		// 	$news->news_state = 1;
-		// }
-		// $news->news_title = $request['newsTitle'];
-		// $news->news_content = $request['newsDescription'];
-
-		// $news->news_author = Auth::user()->user_id;
-		// $news->news_alias = $request['newsAlias'];
-		// $news->news_type = $request['newsType'];
-		// $news->news_management_area = 1;
-
-		// $news->save();
-
-		// unset($request);
-		// unset($news);
-
-		//return back()->withMensaje('Operación Exitosa');
-		return dd($request);
+		$datos = $request->validated();
+		$news = new news();
+		foreach (config('laravellocalization.supportedLocales') as $locale => $value) {
+			$news->news_status_id = 1;
+			$news->user_id = Auth::user()->user_id;
+			$news->news_type_id = $request->newsType;
+			$news->management_area_id = 1;
+			$news->translateOrNew($locale)->news_translation_title = $datos[$locale]['newsTitle'];
+			$news->translateOrNew($locale)->news_translation_content = $datos[$locale]['newsDescription'];
+			$news->translateOrNew($locale)->news_translation_alias = $datos[$locale]['newsAlias'];
+			$news->save();
+		}
+		return back()->withMensaje('Operación Exitosa');
 	}
 
 	public function delete(Request $request)

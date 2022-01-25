@@ -28,17 +28,12 @@ class NewsRequest extends FormRequest
         foreach (config('laravellocalization.supportedLocales') as $locale=>$value) {
             $rules += [
                 "$locale.newsTitle" => 'required',
-                "$locale.newsAlias "=> 'required',
-                "$locale.newsDescription "=> 'required',
+                "$locale.newsAlias"=> 'required',
+                "$locale.newsDescription"=> 'required',
             ];
-
-            $rules[$locale . '.newsTitle'] = 'string';
-            $rules[$locale . '.newsAlias'] = 'string';
-            $rules[$locale . '.newsDescription'] = 'string';
-        }
         $rules+=[
             'newsType'=>'required'];
-
+        }
         return $rules;
     }
 }

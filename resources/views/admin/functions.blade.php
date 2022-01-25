@@ -11,15 +11,15 @@
 <main>
 	<div class="page__main">
 		<div class="main__link">
-			<a href="{{route('mission')}}">Misión - Visión</a>
-			<a href="{{route('objective')}}">Objetivos</a>
-			<a href="{{route('functions')}}">Funciones</a>
-			<a href="{{route('direction')}}">Contáctanos</a>
+			<a href="{{route('mission')}}">{{trans('administration.forms.mision-vision') }}</a>
+			<a href="{{route('objective')}}">{{trans('administration.forms.objectives') }}</a>
+			<a href="{{route('functions')}}">{{trans('administration.forms.functions') }}</a>
+			<a href="{{route('direction')}}">{{trans('administration.page-titles.contacts') }}</a>
 		</div>
 
 		<div class="main__insert">
 			<div class="main__title">
-				<h1>Funciones {{$management->management_area_name}}</h1>
+				<h1>{{ trans('administration.headers.functions') }} {{ trans('administration.page-titles.vice') }}</h1>
 			</div>
 			<div class="insert__form">
 				<form method="POST" action="{{route('functions')}}" class="action__form" id="form__insert" enctype= multipart/form-data>
@@ -27,7 +27,7 @@
 
 					<div class="form__container">
 						<div class="container__label">
-							<label for="">Funciones: </label>
+							<label for="">{{ trans('administration.headers.functions') }}: </label>
 						</div>
 						<div class="container__item">
 							<textarea name="managementAreaFunctions" id="managementAreaFunctions" >{{$management->management_area_functions}}</textarea>
@@ -36,7 +36,7 @@
 
 					<div class="form__container">
 						<div class="container__label">
-							<label for="">Quienes Somos: </label>
+							<label for="">{{trans('administration.forms.about') }}: </label>
 						</div>
 						<div class="container__item">
 							<textarea name="managementAreaDescription" id="managementAreaDescription" >{{$management->management_area_description}}</textarea>
@@ -51,10 +51,10 @@
 					@endIf
 					<div class="form__button">
 						<div class="button__save">						
-							<input type="submit" value="Guardar">
+							<input type="submit" value="{{trans('administration.forms.save') }}">
 						</div>
 						<div class="button__cancel">
-							<input type="button" class="cancel__btn" id="cancel__btn" value="Cancelar">
+							<input type="button" class="cancel__btn" id="cancel__btn" value="{{trans('administration.forms.cancel') }}">
 						</div>
 					</div>
 				</form>

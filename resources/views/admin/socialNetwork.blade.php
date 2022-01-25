@@ -12,7 +12,7 @@
 	<div class="page__update">
 		<form method="POST" action="{{route('updateSocialNetwork')}}" class="action__form" enctype= multipart/form-data>
 			<div class="form__title">
-				<h1>Modificar Red Social</h1>
+				<h1>{{ trans('administration.content.social-edit') }}</h1>
 			</div>
 
 			<input type="hidden" name="_token" value="{{csrf_token()}}">
@@ -20,7 +20,7 @@
 			
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Nombre: </label>
+					<label for="">{{trans('administration.forms.name')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="text" name="socialNetworkName" >
@@ -39,20 +39,20 @@
 			@if (Auth::user()->user_type == 1)
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Estado:</label>
+					<label for="">{{trans('administration.forms.state')}}:</label>
 				</div>
 				<div class="container__item">
 					<select id="socialNetworkState" name="socialNetworkState" class="item__select" >
 						<option value=""></option>
-						<option value="0">No Publicada</option>
-						<option value="1">Publicada</option>
+						<option value="0">{{trans('administration.forms.state-1')}}</option>
+						<option value="1">{{trans('administration.forms.state-2')}}</option>
 					</select>	
 				</div>
 			</div>
 			@endif
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Imagen: </label>
+					<label for="">{{trans('administration.forms.image')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="file" name="socialNetworkImage">
@@ -61,10 +61,10 @@
 
 			<div class="form__button">
 				<div class="button__save">						
-					<input type="submit" value="Guardar">
+					<input type="submit" value="{{trans('administration.forms.save')}}">
 				</div>
 				<div class="button__cancel">
-					<input type="button" class="cancel__btn" value="Cancelar">
+					<input type="button" class="cancel__btn" value="{{trans('administration.forms.cancel')}}">
 				</div>
 			</div>
 
@@ -76,14 +76,14 @@
 	<div class="page__delete" >
 		<form method="POST" action="{{route('deleteSocialNetwork')}}" class="action__form" enctype= multipart/form-data >	
 			<div class="form__title">
-				<h1>Eliminar Red Social</h1>
+				<h1>{{ trans('administration.content.social-delete') }}</h1>
 			</div>
 			<input type="hidden" name="_token" value="{{csrf_token()}}">
 			<input type="hidden" name="socialNetworkId" >
 
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Nombre: </label>
+					<label for="">{{trans('administration.forms.name')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="text" name="socialNetworkTitles"  disabled>
@@ -92,7 +92,7 @@
 
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Descripción: </label>
+					<label for="">{{trans('administration.forms.description')}}: </label>
 				</div>
 				<div class="container__item">
 					<textarea name="socialNetworkDescription" id="socialNetworkDescription" rows="5" disabled > </textarea>
@@ -101,7 +101,7 @@
 
 			<div class="form__container">
 				<div class="container__label">
-					<label for="">Imagen: </label>
+					<label for="">{{trans('administration.forms.image')}}: </label>
 				</div>
 				<div class="container__item">
 					<input type="file" name="socialNetworkImage" disabled>
@@ -110,10 +110,10 @@
 
 			<div class="form__button">
 				<div class="button__save">						
-					<input type="submit" value="Eliminar">
+					<input type="submit" value="{{trans('administration.forms.delete')}}">
 				</div>
 				<div class="button__cancel">
-					<input type="button" class="cancel__btn" value="Cancelar">
+					<input type="button" class="cancel__btn" value="{{trans('administration.forms.cancel')}}">
 				</div>
 			</div>
 		</form>
@@ -124,12 +124,12 @@
 <main>
 	<div class="page__main">
 		<div class="main__title">
-			<h1>Redes Sociales </h1>
+			<h1>{{ trans('administration.forms.vice-3') }} </h1>
 		</div>
 
 		<div class="main__insert">
 			<div class="main__function">
-				<h2>Agregar Red Social</h2>
+				<h2>{{ trans('administration.titles.add-social') }}</h2>
 			</div>	
 			<div class="insert__form">
 				<form method="POST" action="{{route('socialNetwork')}}" class="action__form" id="form__insert" enctype="multipart/form-data">
@@ -137,7 +137,7 @@
 
 					<div class="form__container">
 						<div class="container__label">
-							<label for="">Nombre: </label>
+							<label for="">{{ trans('administration.forms.name') }}: </label>
 						</div>
 						<div class="container__item">
 							<input type="text" name="socialNetworkName" >
@@ -155,7 +155,7 @@
 
 					<div class="form__container">
 						<div class="container__label">
-							<label for="">Imagen: </label>
+							<label for="">{{ trans('administration.forms.image') }}: </label>
 						</div>
 						<div class="container__item">
 							<input type="file" name="socialNetworkImage" >
@@ -179,23 +179,23 @@
 					@endif
 					<div class="form__button">
 						<div class="button__save">						
-							<input type="submit" value="Agregar">
+							<input type="submit" value="{{ trans('administration.forms.save') }}">
 						</div>
 						<div class="button__cancel">
-							<input type="button" class="cancel__btn" id="cancel__btn" value="Cancelar">
+							<input type="button" class="cancel__btn" id="cancel__btn" value="{{ trans('administration.forms.cancel') }}">
 						</div>
 					</div>
 				</form>
 			</div>
 		</div>
 		<div class="main__content">
-			<h2>Redes Sociales Existentes </h2>
+			<h2>{{ trans('administration.forms.social-existing') }} </h2>
 			<table  class="content__table" id="socialNetwork">
 				<thead class="table__head">
 					<tr>
-						<th>Nombre</th>
+						<th>{{ trans('administration.forms.name') }}</th>
 						<th>Url</th>
-						<th>Acciones</th>
+						<th>{{ trans('administration.headers.actions') }}</th>
 					</tr>
 				</thead>
 				<tbody>

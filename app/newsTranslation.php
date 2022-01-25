@@ -10,7 +10,10 @@ class newsTranslation extends Model
     use HasFactory;
 
     public $timestamps = false;
+    protected $table = 'news_translation';
     protected $fillable = ['news_translation_title', 'news_translation_content','news_translation_alias'];
+ 
+    
 
 
 

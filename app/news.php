@@ -13,17 +13,11 @@ class news extends Model implements TranslatableContract
 	use Translatable;
 
     public $timestamps = true;
-
-    protected $guarded = ['news_id'];
+    protected $table = 'news';
+    protected $primaryKey = 'news_id';
+    protected $translationForeignKey = 'news_id';
 	public $translatedAttributes = ['news_translation_title', 'news_translation_content','news_translation_alias'];
 
-	//Relacion de uno a muchos
-	// public function newsTranslations()
-    // {
-    //     return $this->hasMany('App\newsTranslation');
-    // }
-
-    //Relacion uno a muchos (inversa)
     public function newsTypes(){
         return $this->belongsTo('App\newsType');
     }

@@ -49,9 +49,10 @@ Route::group(
 
 
 			//news routes
-			Route::get('news', ['as' => 'news', 'uses' => 'newsController@showNew']);
+			
+			Route::get('news', ['as' => 'news', 'uses' => 'newsController@showNew']);//Mira las noticias existentes
 			Route::get('newsData/{news}', ['as' => 'newsData', 'uses' => 'newsController@showData']);
-			Route::get('newsCreate', ['as' => 'newsCreate', 'uses' => 'newsController@show']);
+			Route::get('newsCreate', ['as' => 'newsCreate', 'uses' => 'newsController@show']);// Crea las noticias
 			Route::Post('news', ['as' => 'news', 'uses' => 'newsController@store']);
 			Route::post('deleteNews', ['as' => 'deleteNews', 'uses' => 'newsController@delete']);
 			Route::post('updateNews', ['as' => 'updateNews', 'uses' => 'newsController@update']);
@@ -59,6 +60,7 @@ Route::group(
 			Route::post('deleteResourcesNews', ['as' => 'deleteResourcesNews', 'uses' => 'newsController@deleteResource']);
 			Route::resource('covenant', 'CovenantController');
 			Route::get('countrys/bycontinent', 'CountryController@getCountrys')->name('admin.countrys.bycontinent');
+			
 			//end news routes
 
 			//gallery routes

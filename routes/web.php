@@ -49,9 +49,9 @@ Route::group(
 
 
 			//news routes
-			Route::get('news', ['as' => 'news', 'uses' => 'newsController@showNew']);
+			Route::get('news', ['as' => 'news', 'uses' => 'newsController@showNew']);//Ve las noticias
 			Route::get('newsData/{news}', ['as' => 'newsData', 'uses' => 'newsController@showData']);
-			Route::get('newsCreate', ['as' => 'newsCreate', 'uses' => 'newsController@show']);
+			Route::get('newsCreate', ['as' => 'newsCreate', 'uses' => 'newsController@show']);//Crea la noticia
 			Route::Post('news', ['as' => 'news', 'uses' => 'newsController@store']);
 			Route::post('deleteNews', ['as' => 'deleteNews', 'uses' => 'newsController@delete']);
 			Route::post('updateNews', ['as' => 'updateNews', 'uses' => 'newsController@update']);

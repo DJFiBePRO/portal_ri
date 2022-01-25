@@ -11,10 +11,10 @@
 	<div class="page__main">		
 		<div class="main__insert">
 			<div class="main__title">
-				<h1>Directivos {{$management->management_area_name}} </h1>
+				<h1>{{trans('administration.forms.vice-1')}} </h1>
 			</div>
 			<div class="main__boton">
-				<a href="{{route('newAuthority')}}"><i class="fa fa-plus"></i>Nuevo</a>
+				<a href="{{route('newAuthority')}}"><i class="fa fa-plus"></i>{{trans('administration.forms.new')}}</a>
 			</div>
 		</div>
 		@if (count($errors) > 0 )
@@ -54,17 +54,17 @@
 					</div>
 					<div class="data__name">
 						<div class="data__item">
-							<label>Nombres:</label>
+							<label>{{trans('administration.forms.name')}}:</label>
 							<input type="text" name="authorityName"  value="{{$authorityData->authority_name}}" >
 						</div>
 
 						<div class="data__item">
-							<label>Apellidos:</label>
+							<label>{{trans('administration.forms.last-name')}}:</label>
 							<input type="text" name="authorityLastName" value="{{$authorityData->authority_last_name}}" >
 						</div>
 
 						<div class="data__item">
-							<label>Hoja de vida actual:</label>
+							<label>{{trans('administration.forms.curriculum-vitae')}}:</label>
 							@if($authorityData->authority_cv !=null)
 							<a target="_blank" href="{{asset('docs/authority/'.$authorityData->authority_cv)}}"><i class="fa fa-file-pdf-o"></i></a>
 							@endIf
@@ -72,7 +72,7 @@
 					</div>
 					<div class="data__name">
 						<div class="data__item">
-							<label>Cargo:</label>
+							<label>{{trans('administration.forms.position')}}:</label>
 							<select name="authorityType" >
 								@forelse($types as $authorityType)
 								@if($authorityData->authority_type != $authorityType->authority_type_id)
@@ -82,30 +82,30 @@
 								@endIf
 
 								@empty
-								<option>No existen cargos </option>
+								<option>{{trans('administration.messages.info-1')}} </option>
 								@endforelse
 							</select>
 						</div>
 
 						<div class="data__item">
-							<label>Departamento:</label>
+							<label>{{trans('administration.forms.departament')}}:</label>
 							<select name="authorityArea" disabled>
 								<option value="{{$management->management_area_id}}">{{$management->management_area_name}}</option>
 							</select>					
 						</div>
 
 						<div class="data__item">
-							<label>Nueva Hoja de vida:</label>
+							<label>{{trans('administration.forms.new-curriculum-vitae')}}:</label>
 							<input type="file" name="authorityCv">
 						</div>
 					</div>
 					
 					<div class="data__button">
 						<div>
-							<input type="submit" name="btnGuardar" value="Modificar">
+							<input type="submit" name="btnGuardar" value="{{trans('administration.forms.edit')}}">
 						</div>
 						<div>
-							<input type="button" required" name="btnCancelar" class="cancel__btn" value="Cancelar">
+							<input type="button" required name="btnCancelar" class="cancel__btn" value="{{trans('administration.forms.cancel')}}">
 						</div>
 					</div>
 				</div>

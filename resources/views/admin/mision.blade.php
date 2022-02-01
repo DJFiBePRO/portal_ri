@@ -22,16 +22,20 @@
 				<h1>{{trans('administration.forms.mision-vision') }} {{ trans('administration.page-titles.vice') }}</h1>
 			</div>
 			<div class="insert__form">
-				<form method="POST" action="{{route('mission')}}" class="action__form" id="form__insert" enctype= multipart/form-data>
+				<form method="POST" action="{{route('mission')}}" class="action__form" id="form__insert"
+					enctype=multipart/form-data>
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
+					@foreach (config('laravellocalization.supportedLocales') as $locale => $value)
 
+					<h1>{{$value['native']}}</h1>
 					<div class="form__container">
 						<div class="container__label">
 							<label for="">{{ trans('administration.sub-nav.mision') }}: </label>
 						</div>
 						<div class="container__item">
-							<textarea name="managementAreaMission" id="managementAreaMission" >{{$management->management_area_mission}}</textarea>
-						</div>					
+							<textarea name="{{$locale}}[managementAreaMission]" class="editor"
+								id="managementAreaMission">{{$managementTrans->mission_translation}}</textarea>
+						</div>
 					</div>
 
 					<div class="form__container">
@@ -39,21 +43,11 @@
 							<label for="">{{ trans('administration.headers.vision') }}:</label>
 						</div>
 						<div class="container__item">
-							<textarea name="managementAreaVision" id="managementAreaVision" > {{$management->management_area_vision}}</textarea>
+							<textarea name="{{$locale}}[managementAreaVision]" class="editor"
+								id="managementAreaVision"> {{$managementTrans->vission_translation}}</textarea>
 
-						</div>					
-					</div>
-					@if (Auth::user()->user_type == 1)
-					<div class="form__container">
-						<div class="container__label">
-							<label for="">{{ trans('administration.forms.image') }}: </label>
 						</div>
-						<div class="container__item">
-							<img src="{{asset('img/vinculacion/'.$management->management_area_image_mission)}}" alt="">
-							<input type="file" name="managementAreaImage" >
-						</div>					
 					</div>
-					@endIf
 					@if(Session::has('mensaje'))
 					<div class="form__container">
 						<div id="mensaje">
@@ -70,12 +64,14 @@
 						</ul>
 					</div>
 					@endif
+					@endforeach
 					<div class="form__button">
-						<div class="button__save">						
+						<div class="button__save">
 							<input type="submit" value="{{trans('administration.forms.save') }}">
 						</div>
 						<div class="button__cancel">
-							<input type="button" class="cancel__btn" id="cancel__btn" value="{{trans('administration.forms.cancel') }}">
+							<input type="button" class="cancel__btn" id="cancel__btn"
+								value="{{trans('administration.forms.cancel') }}">
 						</div>
 					</div>
 				</form>
@@ -83,7 +79,7 @@
 		</div>
 
 	</div>
-</div>
+	</div>
 </main>
 @stop
 
@@ -97,11 +93,15 @@
 		location.reload();
 	});
 
-	CKEDITOR.replace( 'managementAreaMission' );
-	CKEDITOR.replace( 'managementAreaVision' );
+	// CKEDITOR.replace( 'managementAreaMission' );
+	// CKEDITOR.replace( 'managementAreaVision' );
 	$('#mensaje').fadeOut(5000);
 
-
+	var allEditors = document.querySelectorAll('.editor');
+        for (var i = 0; i < allEditors.length; ++i) {
+          CKEDITOR.replace(allEditors[i]);
+		  CKEDITOR.config.forcePasteAsPlainText = true;
+        }
 </script>
 
 @stop

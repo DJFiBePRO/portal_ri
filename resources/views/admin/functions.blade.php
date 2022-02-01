@@ -22,16 +22,20 @@
 				<h1>{{ trans('administration.headers.functions') }} {{ trans('administration.page-titles.vice') }}</h1>
 			</div>
 			<div class="insert__form">
-				<form method="POST" action="{{route('functions')}}" class="action__form" id="form__insert" enctype= multipart/form-data>
+				<form method="POST" action="{{route('functions')}}" class="action__form" id="form__insert"
+					enctype=multipart/form-data>
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
+					@foreach (config('laravellocalization.supportedLocales') as $locale => $value)
 
+					<h1>{{$value['native']}}</h1>
 					<div class="form__container">
 						<div class="container__label">
 							<label for="">{{ trans('administration.headers.functions') }}: </label>
 						</div>
 						<div class="container__item">
-							<textarea name="managementAreaFunctions" id="managementAreaFunctions" >{{$management->management_area_functions}}</textarea>
-						</div>					
+							<textarea name="{{$locale}}[managementAreaFunctions]" class="editor"
+								id="managementAreaFunctions">{{$management->management_area_functions}}</textarea>
+						</div>
 					</div>
 
 					<div class="form__container">
@@ -39,8 +43,9 @@
 							<label for="">{{trans('administration.forms.about') }}: </label>
 						</div>
 						<div class="container__item">
-							<textarea name="managementAreaDescription" id="managementAreaDescription" >{{$management->management_area_description}}</textarea>
-						</div>					
+							<textarea name="{{$locale}}[managementAreaDescription]" class="editor"
+								id="managementAreaDescription">{{$management->management_area_description}}</textarea>
+						</div>
 					</div>
 					@if(Session::has('mensaje'))
 					<div class="form__container">
@@ -49,12 +54,14 @@
 						</div>
 					</div>
 					@endIf
+					@endforeach
 					<div class="form__button">
-						<div class="button__save">						
+						<div class="button__save">
 							<input type="submit" value="{{trans('administration.forms.save') }}">
 						</div>
 						<div class="button__cancel">
-							<input type="button" class="cancel__btn" id="cancel__btn" value="{{trans('administration.forms.cancel') }}">
+							<input type="button" class="cancel__btn" id="cancel__btn"
+								value="{{trans('administration.forms.cancel') }}">
 						</div>
 					</div>
 				</form>
@@ -62,7 +69,7 @@
 		</div>
 
 	</div>
-</div>
+	</div>
 </main>
 @stop
 
@@ -76,8 +83,11 @@
 		location.reload();
 	});
 
-	CKEDITOR.replace( 'managementAreaFunctions' );
-	CKEDITOR.replace( 'managementAreaDescription' );
+	var allEditors = document.querySelectorAll('.editor');
+        for (var i = 0; i < allEditors.length; ++i) {
+          CKEDITOR.replace(allEditors[i]);
+		  CKEDITOR.config.forcePasteAsPlainText = true;
+        }
 	$('#mensaje').fadeOut(5000);
 
 

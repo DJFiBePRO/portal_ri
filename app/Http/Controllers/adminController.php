@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ManagementRequest;
+use App\management_translation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,9 +18,9 @@ class adminController extends Controller
      */
     public function show()
     {
-    	$managementArea = \App\managementArea::firstOrFail();
+        $managementArea = \App\managementArea::firstOrFail();
 
-    	return view('admin/inicio')->withManagement($managementArea);
+        return view('admin/inicio')->withManagement($managementArea);
     }
 
     public function showParameterization()
@@ -30,34 +32,34 @@ class adminController extends Controller
 
     public function update(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
 
             'managementAreaLogo' => 'mimes:jpeg,png|image',
             'managementAreaImage' => 'mimes:jpeg,png|image',
             'managementAreaCreate' => 'required|date|date_format:Y-m-d',
             'managementAreaName' => 'max:100',
 
-            ]);
+        ]);
 
         $managementArea = \App\managementArea::firstOrFail();
         $managementArea->management_area_name = $request->managementAreaName;
-        if($request->hasFile('managementAreaLogo')){
+        if ($request->hasFile('managementAreaLogo')) {
             $logo = $managementArea->management_area_logo;
-            $managementArea->management_area_logo =$request->file('managementAreaLogo')->getClientOriginalName();
+            $managementArea->management_area_logo = $request->file('managementAreaLogo')->getClientOriginalName();
             $path = 'img/logos';
             $file = $request->file('managementAreaLogo');
             $filename = $file->getClientOriginalName();
             $file->move($path, $filename);
-            \File::delete($path.'/'.$logo);
+            \File::delete($path . '/' . $logo);
         }
-        if($request->hasFile('managementAreaImage')){
+        if ($request->hasFile('managementAreaImage')) {
             $imagen = $managementArea->management_area_image;
-            $managementArea->management_area_image =$request->file('managementAreaImage')->getClientOriginalName();
+            $managementArea->management_area_image = $request->file('managementAreaImage')->getClientOriginalName();
             $path = 'img/vinculacion';
             $file = $request->file('managementAreaImage');
             $filename = $file->getClientOriginalName();
             $file->move($path, $filename);
-            \File::delete($path.'/'.$imagen);
+            \File::delete($path . '/' . $imagen);
         }
         $managementArea->management_area_create = $request->managementAreaCreate;
         $managementArea->save();
@@ -75,132 +77,134 @@ class adminController extends Controller
     public function showMission()
     {
         $managementArea = \App\managementArea::firstOrFail();
+        $managementTranslation = \App\management_translation::firstOrFail();
 
-        return view('admin/mision')->withManagement($managementArea);
+        return view('admin/mision')->withManagementTrans($managementTranslation)->withManagement($managementArea);
     }
 
     public function updateMission(Request $request)
     {
+        $rules = [];
+        foreach (config('laravellocalization.supportedLocales') as $locale => $value) {
+            $rules += [
+                "$locale.managementAreaMission" => 'required',
+                "$locale.managementAreaVision" => 'required',
 
-     $this->validate($request,[
+            ];
+        }
+        $this->validate($request, $rules);
+        $datos = $request->except(['_token', '_method']);
 
-        'managementAreaImage' => 'mimes:jpeg,png|image',
-
-        ]);
-
-     $managementArea = \App\managementArea::firstOrFail();
-     $managementArea->management_area_mission = $request->managementAreaMission;
-
-     if($request->hasFile('managementAreaImage')){
-        $image = $managementArea->management_area_image_mission;
-        $managementArea->management_area_image_mission =$request->file('managementAreaImage')->getClientOriginalName();
-        $path = 'img/vinculacion';
-        $file = $request->file('managementAreaImage');
-        $filename = $file->getClientOriginalName();
-        $file->move($path, $filename);
-        \File::delete($path.'/'.$image);
+        $managementArea = \App\management_translation::where('locale', 'en')->update(
+            [
+                'mission_translation' => $datos['en']['managementAreaMission'],
+                'vission_translation' => $datos['en']['managementAreaVision'],
+            ]
+        );
+        //  $managementArea->mission_translation = $request->managementAreaMission;
+        //  $managementArea->vission_translation = $request->managementAreaVision;
+        //  $managementArea->save();
+        $managementArea = \App\management_translation::where('locale', 'es')->update(
+            [
+                'mission_translation' => $datos['es']['managementAreaMission'],
+                'vission_translation' => $datos['es']['managementAreaVision'],
+            ]
+        );
+        //  $managementArea = \App\management_translation::where('locale','en');
+        //  $managementArea->mission_translation = $request->managementAreaMission;
+        //  $managementArea->vission_translation = $request->managementAreaVision;
+        //  $managementArea->save();
+        return back()->withMensaje('Operación Exitosa');
     }
-    $managementArea->management_area_vision = $request->managementAreaVision;
-    $managementArea->save();
-    unset($managementArea);
-    unset($file);
-    unset($filename);
-    unset($path);
-    unset($request);
-    return back()->withMensaje('Operación Exitosa');
 
+    public function showObjective()
+    {
+        $managementArea = \App\managementArea::firstOrFail();
 
-}
-
-public function showObjective()
-{
-    $managementArea = \App\managementArea::firstOrFail();
-
-    return view('admin/objective')->withManagement($managementArea);
-}
-
-public function updateObjective(Request $request)
-{
-
-    $this->validate($request,[
-
-        'managementAreaImage' => 'mimes:jpeg,png|image',
-
-        ]);
-
-    $managementArea = \App\managementArea::firstOrFail();
-    $managementArea->management_area_objective = $request->managementAreaObjective;
-
-    if($request->hasFile('managementAreaImage')){
-        $image = $managementArea->management_area_image_objective;
-        $managementArea->management_area_image_objective =$request->file('managementAreaImage')->getClientOriginalName();
-        $path = 'img/vinculacion';
-        $file = $request->file('managementAreaImage');
-        $filename = $file->getClientOriginalName();
-        $file->move($path, $filename);
-        \File::delete($path.'/'.$image);
+        return view('admin/objective')->withManagement($managementArea);
     }
-    $managementArea->save();
-    unset($managementArea);
-    unset($file);
-    unset($filename);
-    unset($path);
-    unset($request);
 
+    public function updateObjective(Request $request)
+    {
 
-    return back()->withMensaje('Operación Exitosa');
+        $this->validate($request, [
 
-
-}
-
-public function showFunctions()
-{
-    $managementArea = \App\managementArea::firstOrFail();
-
-    return view('admin/functions')->withManagement($managementArea);
-}
-
-public function updateFunctions(Request $request)
-{
-    $managementArea = \App\managementArea::firstOrFail();
-    $managementArea->management_area_functions = $request->managementAreaFunctions;
-    $managementArea->management_area_description = $request->managementAreaDescription;
-    $managementArea->save();
-    unset($managementArea);
-    unset($request);
-
-    return back()->withMensaje('Operación Exitosa');
-
-
-}
-
-public function showDirection()
-{
-    $managementArea = \App\managementArea::firstOrFail();
-
-    return view('admin/direction')->withManagement($managementArea);
-}
-
-public function updateDirection(Request $request)
-{
-
-    $this->validate($request,[
-
-        'managementAreaMail' => 'max:100|email',
-        'managementAreaPhone' => 'max:100',
-        'managementAreaMap' => 'max:800',
+            'managementAreaImage' => 'mimes:jpeg,png|image',
 
         ]);
-    $managementArea = \App\managementArea::firstOrFail();
-    $managementArea->management_area_direction = $request->managementAreaDirection;
-    $managementArea->management_area_mail = $request->managementAreaMail;
-    $managementArea->management_area_phone = $request->managementAreaPhone;
-    $managementArea->management_area_map = $request->managementAreaMap;
-    $managementArea->save();
-    unset($managementArea);
-    unset($request);
 
-    return back()->withMensaje('Operación Exitosa');
+        $managementArea = \App\managementArea::firstOrFail();
+        $managementArea->management_area_objective = $request->managementAreaObjective;
 
-}
+        if ($request->hasFile('managementAreaImage')) {
+            $image = $managementArea->management_area_image_objective;
+            $managementArea->management_area_image_objective = $request->file('managementAreaImage')->getClientOriginalName();
+            $path = 'img/vinculacion';
+            $file = $request->file('managementAreaImage');
+            $filename = $file->getClientOriginalName();
+            $file->move($path, $filename);
+            \File::delete($path . '/' . $image);
+        }
+        $managementArea->save();
+        unset($managementArea);
+        unset($file);
+        unset($filename);
+        unset($path);
+        unset($request);
+
+
+        return back()->withMensaje('Operación Exitosa');
+    }
+
+    public function showFunctions()
+    {
+        $managementArea = \App\managementArea::firstOrFail();
+
+        return view('admin/functions')->withManagement($managementArea);
+    }
+
+    public function updateFunctions(Request $request)
+    {
+        $managementArea = \App\managementArea::firstOrFail();
+        $managementArea->management_area_functions = $request->managementAreaFunctions;
+        $managementArea->management_area_description = $request->managementAreaDescription;
+        $managementArea->save();
+        unset($managementArea);
+        unset($request);
+
+        return back()->withMensaje('Operación Exitosa');
+    }
+
+    public function showDirection()
+    {
+        $managementArea = \App\managementArea::firstOrFail();
+
+        return view('admin/direction')->withManagement($managementArea);
+    }
+
+    public function updateDirection(Request $request)
+    {
+
+        $this->validate($request, [
+
+            'managementAreaMail' => 'max:100|email',
+            'managementAreaPhone' => 'max:100',
+            'managementAreaMap' => 'max:800',
+
+        ]);
+        $managementArea = \App\managementArea::firstOrFail();
+        $managementArea->management_area_direction = $request->managementAreaDirection;
+        $managementArea->management_area_mail = $request->managementAreaMail;
+        $managementArea->management_area_phone = $request->managementAreaPhone;
+        $managementArea->management_area_map = $request->managementAreaMap;
+        $managementArea->save();
+        unset($managementArea);
+        unset($request);
+
+        return back()->withMensaje('Operación Exitosa');
+    }
+    public function store(ManagementRequest $request)
+    {
+        # code...
+    }
 }

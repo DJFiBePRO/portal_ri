@@ -12,57 +12,6 @@
 
 @section('main')
 
-{{-- <section>
-    <div class="page__delete">
-
-
-        <div class="form__title">
-            <h1>Eliminar Convenio</h1>
-        </div>
-
-        {{ csrf_field() }}{{ method_field('DELETE') }}
-
-        <div class="data__container">
-            <div class="data__name">
-                <div class="data__item">
-                    <label>Caracter:</label>
-                    <input disabled type="text" name="caracter">
-                </div>
-                <div class="data__item">
-                    <label>Universidad:</label>
-                    <input disabled type="text" name="university">
-                </div>
-                <div class="data__item">
-                    <label>País:</label>
-                    <input disabled type="text" name="country">
-                </div>
-                <div class="data__item">
-                    <label>Continente:</label>
-                    <input disabled type="text" name="continent">
-                </div>
-            </div>
-            <div class="data__name">
-                <div class="data__item">
-                    <label>Resolución:</label>
-                    <input disabled type="file" name="resolution">
-                </div>
-                <div class="data__item">
-                    <label>Validez:</label>
-                    <input disabled type="text" name="is_validity">
-                </div>
-            </div>
-        </div>
-        <div class="form__button">
-            <div class="button__save">
-                <input type="submit" value="Eliminar">
-            </div>
-            <div class="button__cancel">
-                <input type="button" class="cancel__btn" value="Cancelar">
-            </div>
-        </div>
-
-    </div>
-</section> --}}
 <main>
     <div class="page__main">
         <div class="main__title">
@@ -82,17 +31,19 @@
                 @endIf
             </div>
             <div class="insert__form">
-                <form id="form__insert" class="action__form" action={{ route('covenant.store') }} method="POST" enctype= multipart/form-data>
+                <form id="form__insert" class="action__form" action={{ route('covenant.store') }} method="POST"
+                    enctype=multipart/form-data>
                     {{ csrf_field() }}
+                   
                     <div class="form__container">
                         <div class="container__label">
                             <label>{{ trans('administration.page-titles.caracter') }}:</label>
                         </div>
                         <div class="container__item ">
                             <select style="width:90%" name="caracter" id="caracter" required>
-                                <option hidden value="">Seleccione un caracter</option>
-                                <option value="MARCO DE COOPERACIÓN">MARCO DE COOPERACIÓN</option>
-                                <option value="CONVENIO ESPECÍFICO">CONVENIO ESPECÍFICO</option>
+                                <option hidden value="">{{trans('administration.forms.enter-caracter')}}</option>
+                                <option value="MARCO DE COOPERACIÓN">{{trans('administration.forms.type-caracter1')}}</option>
+                                <option value="CONVENIO ESPECÍFICO">{{trans('administration.forms.type-caracter2')}}</option>
                             </select>
                         </div>
                     </div>
@@ -103,7 +54,7 @@
                         </div>
                         <div class="container__item ">
                             <input type="text" maxlength="20" onkeypress="return soloLetras(event);"
-                                class="form-control" id="university" name="university" placeholder="Ingrese Universidad"
+                                class="form-control" id="university" name="university" placeholder="{{trans('administration.forms.enter-university')}}"
                                 value="" required>
                         </div>
                     </div>
@@ -113,8 +64,8 @@
                             <label>{{ trans('administration.page-titles.continent') }}:</label>
                         </div>
                         <div class="container__item ">
-                            <select style="width:90% "  id="idContinent" required>
-                                <option hidden value="">Seleccione continente</option>
+                            <select style="width:90% " id="idContinent" required>
+                                <option hidden value="">{{trans('administration.forms.enter-continent')}}</option>
                                 @foreach ($continents as $continent)
                                 <option value="{{ $continent->id }}">{{ $continent->continent }}</option>
                                 @endforeach
@@ -130,7 +81,7 @@
                         <div class="container__item">
 
                             <select style="width:90%" name="idCountry" id="idCountry" required>
-                                <option hidden value="">Seleccione un país</option>
+                                <option hidden value="">{{trans('administration.forms.enter-country')}}</option>
                             </select>
                         </div>
                     </div>
@@ -140,7 +91,7 @@
                             <label>{{ trans('administration.page-titles.resolution') }}:</label>
                         </div>
                         <div class="container__item ">
-                            <input type="file"  name="resolution">
+                            <input type="file" name="resolution">
                         </div>
                     </div>
                     <br>
@@ -151,7 +102,7 @@
                         <div class="container__item ">
                             <input type="text" maxlength="20" onkeypress="return soloLetras(event);"
                                 class="form-control" id="is_validity" name="is_validity"
-                                placeholder="Ingrese validación" value="" required>
+                                placeholder="{{trans('administration.forms.enter-validity')}}" value="" required>
 
                         </div>
                     </div>
@@ -172,12 +123,14 @@
                         </ul>
                     </div>
                     @endif
+                    
                     <div class="form__button">
                         <div class="button__save">
                             <input type="submit" value="{{ trans('administration.forms.save') }}" id="a">
                         </div>
                         <div class="button__cancel">
-                            <input type="button" class="cancel__btn" id="cancel__btn" value="{{ trans('administration.forms.save') }}">
+                            <input type="button" class="cancel__btn" id="cancel__btn"
+                                value="{{ trans('administration.forms.save') }}">
                         </div>
                     </div>
                 </form>
@@ -200,7 +153,7 @@
                         @forelse ($covenants as $covenant )
                         <tr class="data__info" data-id="{{$covenant->id}}" data-caracter="{{$covenant->caracter}}"
                             data-universidad="{{$covenant->university}}" data-pais="{{$covenant->idCountry}}"
-                             data-resolucion="{{$covenant->resolution}}">
+                            data-resolucion="{{$covenant->resolution}}">
                             <td>{{$covenant->caracter}}</td>
                             <td>{{$covenant->university}}</td>
                             <td>
@@ -308,17 +261,5 @@
         })
     });
 </script>
-<script>
-    $(function() {
-        $('select').each(function() {
-            $(this).select2({
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass(
-                    'w-100') ? '100%' : 'style',
-                placeholder: $(this).data('placeholder'),
-                closeOnSelect: !$(this).attr('multiple'),
-                language: "es",
-            });
-        });
-    });
-</script>
+
 @stop

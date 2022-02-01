@@ -8,6 +8,8 @@ class managementArea extends Model
 {
     protected $table = 'management_area';
 	protected $primaryKey = 'management_area_id';
+    protected $translationForeignKey = 'management_area_id';
+    public $translatedAttributes =['mission_translation','vission_translation','objective_translation','function_translation','about_translation'];
 
 	protected $fillable = [
 

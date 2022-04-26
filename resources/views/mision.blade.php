@@ -27,13 +27,13 @@
 					<div> {{trans('administration.forms.mission')}} </div>
 				</div>
 				<div class="article-content-description">
-					<p>{!!$management->management_area_mission !!} </p>
+					<p>{!!$managementTrans->mission_translation !!} </p>
 				</div>
 				<div class="title">
 					<div> {{trans('administration.forms.vision')}} </div>
 				</div>
 				<div class="article-content-description">
-					<p>{!!$management->management_area_vision !!} </p>
+					<p>{!!$managementTrans->vission_translation !!} </p>
 				</div>
 			</div>
 			<div class="article-img">

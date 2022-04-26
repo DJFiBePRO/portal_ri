@@ -100,7 +100,7 @@
 	var allEditors = document.querySelectorAll('.editor');
         for (var i = 0; i < allEditors.length; ++i) {
           CKEDITOR.replace(allEditors[i]);
-		  CKEDITOR.config.forcePasteAsPlainText = true;
+		  CKEDITOR.config.forcePasteAsPlainText = false;
         }
 </script>
 

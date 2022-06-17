@@ -29,6 +29,7 @@
 				@if ($contenido->multimedia_type == 1)
 				<a href="{{ asset('img/noticias/'.$contenido->multimedia_name) }}"><img class="image"
 						src="{{ asset('img/noticias/'.$contenido->multimedia_name) }}" alt=""></a>
+						
 				@endif
 				@if ($contenido->multimedia_type == 2)
 

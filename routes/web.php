@@ -286,9 +286,9 @@ Route::group(
 				->first();
 			// $managementTranslation = \App\management_translation::firstOrFail()->where('management_translations.locale', app()->getLocale());
 			$managementTranslation = DB::table('management_translations')
-			->join('management_area', 'management_area.management_area_id', '=', 'management_translations.management_id')
-			->select('management_translations.mission_translation as mission_translation','management_translations.vission_translation as vission_translation')
-			->where('management_translations.locale', app()->getLocale());
+				->join('management_area', 'management_area.management_area_id', '=', 'management_translations.management_id')
+				->select('management_translations.mission_translation as mission_trans', 'management_translations.vission_translation as vission_trans')
+				->where('management_translations.locale', app()->getLocale())->first();
 
 			$social = DB::table('social_network')
 				->where('social_network_state', 1)
@@ -476,6 +476,10 @@ Route::group(
 
 			$managementArea = DB::table('management_area')
 				->first();
+			$managementTranslation = DB::table('management_translations')
+				->join('management_area', 'management_area.management_area_id', '=', 'management_translations.management_id')
+				->select('management_translations.objective_translation as objective_trans')
+				->where('management_translations.locale', app()->getLocale())->first();
 			$social = DB::table('social_network')
 				->where('social_network_state', 1)
 				->get();
@@ -486,7 +490,7 @@ Route::group(
 				->get();
 			return view('objetivos')
 				->withSocial($social)->withCategory($category)
-
+				->withManagementTrans($managementTranslation)
 				->withManagement($managementArea);
 		});
 
@@ -591,7 +595,10 @@ Route::group(
 		Route::get('/quienes-somos', function () {
 			$managementArea = DB::table('management_area')
 				->first();
-
+				$managementTranslation = DB::table('management_translations')
+				->join('management_area', 'management_area.management_area_id', '=', 'management_translations.management_id')
+				->select('management_translations.about_translation as about_trans')
+				->where('management_translations.locale', app()->getLocale())->first();
 			$social = DB::table('social_network')
 				->where('social_network_state', 1)
 				->get();
@@ -606,7 +613,7 @@ Route::group(
 			return view('quienesSomos')
 				->withManagement($managementArea)
 				->withSocial($social)->withCategory($category)
-
+				->withManagementTrans($managementTranslation)
 				->withCultural($culturalManagement);
 		});
 
@@ -690,13 +697,13 @@ Route::group(
 			// }
 			// $newsTypeTable = \App\newsType::All();
 			// $multimediaTable = \App\multimediaType::All();
-			return dd($news);
-			// return view('noticias')
-			// 	->withManagement($managementArea)
-			// 	->withSocial($social)
-			// 	->withCategory($category)
-			// 	->withPrincipal($news[0])
-			// 	->withNews($news);
+			//return dd($news);
+			return view('noticias')
+				->withManagement($managementArea)
+				->withSocial($social)
+				->withCategory($category)
+				->withPrincipal($news[0])
+				->withNews($news);
 		});
 
 		Route::get('/noticia/{id}', function ($id) {

@@ -23,12 +23,12 @@
 			<div class="ed-item main-center cross-center">
 				<h1>{{trans('administration.forms.about') }} </h1>
 			</div>
-			<div class="ed-item main-end">
+			{{-- <div class="ed-item main-end">
 				<p>Fecha de Creación de la dependencia: 30 de enero del 2001</p>
-			</div>
+			</div> --}}
 			<div class="ed-item cross-start web-50">
 				<img src="{{ asset('img/vinculacion/IMAGEN-INFORMACION.png') }}" alt="" width="40%">
-				<p>{!!$management->management_area_description!!}</p>
+				<p>{!!$managementTrans->about_trans!!}</p>
 			</div>
 			<div class="ed-item cross-start web-50">
 				<p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </p>

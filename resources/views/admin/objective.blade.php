@@ -25,6 +25,10 @@
 				<form method="POST" action="{{route('objective')}}" class="action__form" id="form__insert"
 					enctype=multipart/form-data>
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
+					
+					@php
+						$traducciones=0;
+					@endphp
 					@foreach (config('laravellocalization.supportedLocales') as $locale => $value)
 
 					<h1>{{$value['native']}}</h1>
@@ -34,21 +38,10 @@
 						</div>
 						<div class="container__item">
 							<textarea name="{{$locale}}[managementAreaObjective]" class="editor"
-								id="managementAreaObjective">{{$management->management_area_objective}}</textarea>
+								id="managementAreaObjective">{{$managementTrans[$traducciones++]->objective_translation}}</textarea>
 						</div>
 					</div>
-					@if (Auth::user()->user_type == 1)
-					<div class="form__container">
-						<div class="container__label">
-							<label for="">{{ trans('administration.forms.image') }}: </label>
-						</div>
-						<div class="container__item">
-							<img src="{{asset('img/vinculacion/'.$management->management_area_image_objective)}}"
-								alt="">
-							<input type="file" name="managementAreaImage">
-						</div>
-					</div>
-					@endIf
+					
 					@if(Session::has('mensaje'))
 					<div class="form__container">
 						<div id="mensaje">
@@ -66,6 +59,18 @@
 					</div>
 					@endif
 					@endforeach
+					@if (Auth::user()->user_type == 1)
+					<div class="form__container">
+						<div class="container__label">
+							<label for="">{{ trans('administration.forms.image') }}: </label>
+						</div>
+						<div class="container__item">
+							<img src="{{asset('img/vinculacion/'.$management->management_area_image_objective)}}"
+								alt="">
+							<input type="file" name="managementAreaImage">
+						</div>
+					</div>
+					@endIf
 					<div class="form__button">
 						<div class="button__save">
 							<input type="submit" value="{{ trans('administration.forms.save') }}">

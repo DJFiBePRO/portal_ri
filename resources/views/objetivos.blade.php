@@ -25,7 +25,7 @@
 					<div> {{trans('administration.forms.objectives')}} </div>
 				</div>
 				<div class="article-content-description">
-					<p>{!!$management->management_area_objective !!} </p>
+					<p>{!!$managementTrans->objective_trans !!} </p>
 				</div>
 				
 			</div>

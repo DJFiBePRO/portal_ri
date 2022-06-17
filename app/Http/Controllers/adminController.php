@@ -77,9 +77,10 @@ class adminController extends Controller
     public function showMission()
     {
         $managementArea = \App\managementArea::firstOrFail();
-        $managementTranslation = \App\management_translation::firstOrFail();
+        $managementTranslation = \App\management_translation::all();
 
         return view('admin/mision')->withManagementTrans($managementTranslation)->withManagement($managementArea);
+        // return dd($managementTranslation);
     }
 
     public function updateMission(Request $request)
@@ -95,7 +96,7 @@ class adminController extends Controller
         $this->validate($request, $rules);
         $datos = $request->except(['_token', '_method']);
 
-        $managementArea = \App\management_translation::where('locale', 'en')->update(
+       \App\management_translation::where('locale', 'en')->update(
             [
                 'mission_translation' => $datos['en']['managementAreaMission'],
                 'vission_translation' => $datos['en']['managementAreaVision'],
@@ -104,7 +105,7 @@ class adminController extends Controller
         //  $managementArea->mission_translation = $request->managementAreaMission;
         //  $managementArea->vission_translation = $request->managementAreaVision;
         //  $managementArea->save();
-        $managementArea = \App\management_translation::where('locale', 'es')->update(
+        \App\management_translation::where('locale', 'es')->update(
             [
                 'mission_translation' => $datos['es']['managementAreaMission'],
                 'vission_translation' => $datos['es']['managementAreaVision'],
@@ -120,16 +121,36 @@ class adminController extends Controller
     public function showObjective()
     {
         $managementArea = \App\managementArea::firstOrFail();
+        $managementTranslation = \App\management_translation::all();
 
-        return view('admin/objective')->withManagement($managementArea);
+        return view('admin/objective')->withManagementTrans($managementTranslation)->withManagement($managementArea);
     }
 
     public function updateObjective(Request $request)
     {
+        $rules = [];
+        foreach (config('laravellocalization.supportedLocales') as $locale => $value) {
+            $rules += [
+                "$locale.managementAreaObjective" => 'required',
 
+            ];
+        }
+        $this->validate($request, $rules);
+        $datos = $request->except(['_token', '_method']);
+
+       \App\management_translation::where('locale', 'en')->update(
+            [
+                'objective_translation' => $datos['en']['managementAreaObjective'],
+            ]
+        );
+        \App\management_translation::where('locale', 'es')->update(
+            [
+                'objective_translation' => $datos['es']['managementAreaObjective'],
+            ]
+        );
         $this->validate($request, [
 
-            'managementAreaImage' => 'mimes:jpeg,png|image',
+            'managementAreaImage.*' => 'mimes:jpeg,png|image',
 
         ]);
 
@@ -159,19 +180,36 @@ class adminController extends Controller
     public function showFunctions()
     {
         $managementArea = \App\managementArea::firstOrFail();
+        $managementTranslation = \App\management_translation::all();
 
-        return view('admin/functions')->withManagement($managementArea);
+        return view('admin/functions')->withManagementTrans($managementTranslation)->withManagement($managementArea);
     }
 
     public function updateFunctions(Request $request)
     {
-        $managementArea = \App\managementArea::firstOrFail();
-        $managementArea->management_area_functions = $request->managementAreaFunctions;
-        $managementArea->management_area_description = $request->managementAreaDescription;
-        $managementArea->save();
-        unset($managementArea);
-        unset($request);
+        $rules = [];
+        foreach (config('laravellocalization.supportedLocales') as $locale => $value) {
+            $rules += [
+                "$locale.managementAreaFunctions" => 'required',
+                "$locale.managementAreaDescription" => 'required',
 
+            ];
+        }
+        $this->validate($request, $rules);
+        $datos = $request->except(['_token', '_method']);
+
+       \App\management_translation::where('locale', 'en')->update(
+            [
+                'function_translation' => $datos['en']['managementAreaFunctions'],
+                'about_translation' => $datos['en']['managementAreaDescription'],
+            ]
+        );
+        \App\management_translation::where('locale', 'es')->update(
+            [
+                'function_translation' => $datos['es']['managementAreaFunctions'],
+                'about_translation' => $datos['es']['managementAreaDescription'],
+            ]
+        );
         return back()->withMensaje('Operación Exitosa');
     }
 

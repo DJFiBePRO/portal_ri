@@ -25,8 +25,10 @@
 				<form method="POST" action="{{route('mission')}}" class="action__form" id="form__insert"
 					enctype=multipart/form-data>
 					<input type="hidden" name="_token" value="{{csrf_token()}}">
+					@php
+						$traducciones=0;
+					@endphp
 					@foreach (config('laravellocalization.supportedLocales') as $locale => $value)
-
 					<h1>{{$value['native']}}</h1>
 					<div class="form__container">
 						<div class="container__label">
@@ -34,7 +36,7 @@
 						</div>
 						<div class="container__item">
 							<textarea name="{{$locale}}[managementAreaMission]" class="editor"
-								id="managementAreaMission">{{$managementTrans->mission_translation}}</textarea>
+								id="managementAreaMission">{{$managementTrans[$traducciones]->mission_translation}}</textarea>
 						</div>
 					</div>
 
@@ -44,8 +46,8 @@
 						</div>
 						<div class="container__item">
 							<textarea name="{{$locale}}[managementAreaVision]" class="editor"
-								id="managementAreaVision"> {{$managementTrans->vission_translation}}</textarea>
-
+								id="managementAreaVision"> {{$managementTrans[$traducciones++]->vission_translation}}</textarea>
+							
 						</div>
 					</div>
 					@if(Session::has('mensaje'))

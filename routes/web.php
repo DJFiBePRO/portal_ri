@@ -595,7 +595,7 @@ Route::group(
 		Route::get('/quienes-somos', function () {
 			$managementArea = DB::table('management_area')
 				->first();
-				$managementTranslation = DB::table('management_translations')
+			$managementTranslation = DB::table('management_translations')
 				->join('management_area', 'management_area.management_area_id', '=', 'management_translations.management_id')
 				->select('management_translations.about_translation as about_trans')
 				->where('management_translations.locale', app()->getLocale())->first();
@@ -697,20 +697,32 @@ Route::group(
 			// }
 			// $newsTypeTable = \App\newsType::All();
 			// $multimediaTable = \App\multimediaType::All();
-			//return dd($news);
-			return view('noticias')
-				->withManagement($managementArea)
-				->withSocial($social)
-				->withCategory($category)
-				->withPrincipal($news[0])
-				->withNews($news);
+			// return dd($news);
+			 return view('noticias')
+			 	->withManagement($managementArea)
+			 	->withSocial($social)
+			 	->withCategory($category)
+			 	->withPrincipal($news[0])
+			 	->withNews($news);
 		});
 
 		Route::get('/noticia/{id}', function ($id) {
 
 			if (isset($id)) {
-				$news = App\news::where('news_id', $id)->first();
-				$multimedia = App\multimedia::where('multimedia_news', $news->news_id)
+
+				$news = DB::table('news_translation')
+				->join('news', 'news.news_id', '=', 'news_translation.news_id')
+				->join('multimedia', 'news.news_id', '=', 'multimedia.multimedia_news')
+				->select('news.news_id as news_id', 'news.news_status_id as news_status_id', 'news_translation.news_translation_title as news_translation_title', 'news_translation.news_translation_content as news_translation_content', 'multimedia.multimedia_name as multimedia_name', 'news_translation.news_translation_alias as news_translation_alias', 'news_translation.locale as locale')
+				->where('news.news_status_id', 1)
+				->where('news.news_type_id', 1)
+				->where('news_translation.locale', app()->getLocale())
+				->where('news.news_id', $id)
+				->first();
+					
+
+				//$news = App\news::where('news_id', $id)->first();
+				$multimedia = App\multimedia::where('multimedia_news', $id)
 					->orderBy('multimedia_type', 'desc')
 					->get();
 				$image = "";
@@ -732,6 +744,7 @@ Route::group(
 					//cambio asc por desc
 					->orderBy('link.link_id', 'desc')
 					->get();
+				// return dd($news);
 				return view('noticia')
 					->withNews($news)
 					->withMultimedia($multimedia)

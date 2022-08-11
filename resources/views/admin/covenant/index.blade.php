@@ -130,7 +130,7 @@
                         </div>
                         <div class="button__cancel">
                             <input type="button" class="cancel__btn" id="cancel__btn"
-                                value="{{ trans('administration.forms.save') }}">
+                                value="{{ trans('administration.forms.cancel') }}">
                         </div>
                     </div>
                 </form>

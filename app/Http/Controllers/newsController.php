@@ -33,7 +33,7 @@ class newsController extends Controller
 		$newsTypeTable = \App\newsType::All();
 		$multimediaTable = \App\multimediaType::All();
 
-		return view ('admin.news')
+		return view ('admin.newsCreate')
 		->withManagement($managementArea)
 		->withNews($news)
 		->withMultimedia($multimediaTable)

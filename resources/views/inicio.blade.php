@@ -127,9 +127,9 @@
 			</div>
 
 			<div class="article-content">
-				<p><span class="fa fa-envelope fa-3x"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </p>
-				<p><span class="fa fa-phone-square fa-3x"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </p>
-				<p><span class="fa fa-map-marker fa-3x"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Panamericana Sur Km 1 1/2
+				<p><span class="fa fa-envelope fa-3x"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{ $management->management_area_mail}} </p>
+				<p><span class="fa fa-phone-square fa-3x"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{ $management->management_area_phone}}</p>
+				<p><span class="fa fa-map-marker fa-3x"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{ $management->management_area_direction}}
 				</p>
 
 			</div>
